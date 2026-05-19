@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button } from "@heroui/react";
+import { Avatar, Button, Dropdown, Spinner } from "@heroui/react";
 
 import {
   FaBars,
@@ -11,12 +11,18 @@ import {
   FaSearch,
   FaMoon,
   FaSun,
+  FaUser,
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { useTheme } from "next-themes";
 import logo from '../../img/white_logo.png';
 import darklogo from '../../img/dark_logo.png';
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+
+import { MdDashboard, MdLogin, MdPersonAdd } from "react-icons/md";
+
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,6 +30,13 @@ export default function Navbar() {
     const pathName = usePathname();
 
     console.log(theme);
+// const { data: session, error } =  authClient.getSession()
+
+  const { data: session, isPending ,error} = authClient.useSession();
+
+  const userProfile = session?.user;
+
+console.log(userProfile,error ,"dashboard");
 
   const navLinks = [
     "Home",
@@ -91,17 +104,118 @@ export default function Navbar() {
               <FaMoon size={15} />
             )}
           </Button>
+          {
+            isPending?
+            <>
+            <Spinner></Spinner></>
+            :
 
-          {/* CTA Button */}
-          <div className="flex ">
+
+          <Dropdown placement="bottom-end">
+  <Dropdown.Trigger>
+    {session?.user ? (
+      // Avatar trigger
+      <Avatar className="cursor-pointer ring-2 ring-white/20">
+        <Avatar.Image
+          src={session.user.image}
+          alt={session.user.name}
+        />
+        <Avatar.Fallback>
+          {session.user.name?.charAt(0)}
+        </Avatar.Fallback>
+      </Avatar>
+    ) : (
+      // Sign In / Sign Up buttons
+      <div className="flex items-center gap-3">
+        
             <Link href={'/signin'}>
             <Button className='bg-transparent text-black font-semibold hover:text-pri'>Sign In</Button>
             </Link>
             <Link href={'/signup'}>
             <Button className="bg-pri rounded-full hover:bg-pri/80  text-white font-semibold">Sign Up</Button>
             </Link>
+      </div>
+    )}
+  </Dropdown.Trigger>
+
+  {session?.user && (
+    <Dropdown.Popover className="p-0 border border-gray-200 shadow-2xl rounded-2xl overflow-hidden">
+      <Dropdown.Menu
+        aria-label="User Menu"
+        className="min-w-[220px] bg-white text-black p-2"
+      >
+        {/* User Info */}
+        <Dropdown.Item
+          isReadOnly
+          className="cursor-default hover:bg-transparent"
+        >
+          <div className="flex items-center gap-3 p-2">
+            <Avatar>
+              <Avatar.Image
+                src={session.user.image}
+                alt={session.user.name}
+              />
+              <Avatar.Fallback>
+                {session.user.name?.charAt(0)}
+              </Avatar.Fallback>
+            </Avatar>
+
+            <div>
+              <h4 className="font-semibold text-sm">
+                {session.user.name}
+              </h4>
+
+              <p className="text-xs text-gray-500">
+                Logged In
+              </p>
+            </div>
           </div>
-        </div>
+        </Dropdown.Item>
+
+        {/* Profile */}
+        <Dropdown.Item className="rounded-xl hover:bg-gray-100 transition">
+          <Link
+            href="/profile"
+            className="flex items-center gap-3 w-full"
+          >
+            <FaUser className="text-gray-500" />
+            Profile
+          </Link>
+        </Dropdown.Item>
+
+        {/* Dashboard */}
+        <Dropdown.Item className="rounded-xl hover:bg-gray-100 transition">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-3 w-full"
+          >
+            <MdDashboard className="text-gray-500" />
+            Dashboard
+          </Link>
+        </Dropdown.Item>
+
+        {/* Logout */}
+        <Dropdown.Item className="rounded-xl hover:bg-red-50 transition">
+          <Button
+            onPress={() => authClient.signOut()}
+            className="bg-transparent shadow-none p-0 h-auto 
+            flex items-center gap-3 text-red-500 hover:text-red-600"
+          >
+            <FaSignOutAlt />
+            Logout
+          </Button>
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown.Popover>
+  )}
+</Dropdown>
+          }
+          
+          </div>
+
+          {/* CTA Button */}
+
+
 
         {/* Mobile Buttons */}
         <div className="flex items-center gap-3 md:hidden">

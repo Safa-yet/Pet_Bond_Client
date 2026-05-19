@@ -1,5 +1,6 @@
 import Hero from "@/Component/Home Page/Hero";
 import PetCollection from "@/Component/Home Page/PetCollection";
+import PetCard from "@/Component/Shared Ui/PetCard";
 
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
  <>
    <Hero></Hero>
    <PetCollection></PetCollection>
+   <PetCard></PetCard>
  </>
   );
 }

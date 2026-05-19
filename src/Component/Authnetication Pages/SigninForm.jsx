@@ -1,13 +1,20 @@
+import { authClient } from "@/lib/auth-client";
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
 
 const SigninForm = () => {
-     const onSubmit = (e) => {
+     const onSubmit =async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-
-    console.log(data);
- }
+    const userData= Object.fromEntries(formData.entries())
+   console.log(userData)
+   const { data, error } = await authClient.signIn.email({
+    email: userData.email, // required
+    password: userData.password, // required
+    rememberMe: true,
+    callbackURL: "/",
+});
+console.log(data,error ,"From Signin");
+  };
 
     return (
             <Form className="flex  flex-col gap-4" onSubmit={onSubmit}>

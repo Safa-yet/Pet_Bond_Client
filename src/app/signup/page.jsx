@@ -1,11 +1,9 @@
-'use client';
+
 
 import SignupForm from '@/Component/Authnetication Pages/SignupForm';
 import Image from 'next/image';
-import { useState } from 'react';
 
 const RegisterPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="bg-background container mx-auto text-on-background min-h-screen flex flex-col overflow-x-hidden">
@@ -19,14 +17,7 @@ const RegisterPage = () => {
             {/* MOBILE LOGO */}
             <div className="lg:hidden flex items-center gap-3 mb-10">
               <div className="w-11 h-11 rounded-full bg-pri flex items-center justify-center">
-                <span
-                  className="material-symbols-outlined text-"
-                  style={{
-                    fontVariationSettings: "'FILL' 1",
-                  }}
-                >
-                  pets
-                </span>
+                
               </div>
 
               <h2 className="text-2xl font-extrabold text-primary">
@@ -92,14 +83,7 @@ const RegisterPage = () => {
               {/* FACEBOOK */}
               <button className="h-14 rounded-full border-2 border-outline-variant/30 flex items-center justify-center gap-3 hover:bg-surface-container transition-all">
 
-                <span
-                  className="material-symbols-outlined text-[#1877F2]"
-                  style={{
-                    fontVariationSettings: "'FILL' 1",
-                  }}
-                >
-                  face
-                </span>
+                
 
                 <span className="font-semibold">
                   Facebook
@@ -167,7 +151,7 @@ const RegisterPage = () => {
       {/* FOOTER */}
       
 
-      {/* STYLE */}
+      {/* STYLE
       <style jsx>{`
         .animate-float {
           animation: float 6s ease-in-out infinite;
@@ -183,7 +167,7 @@ const RegisterPage = () => {
             transform: translateY(-20px);
           }
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 };

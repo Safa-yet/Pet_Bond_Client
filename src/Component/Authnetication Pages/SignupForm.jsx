@@ -1,16 +1,50 @@
-import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
-const SignupForm = () => {
- const onSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-       const data = Object.fromEntries(formData.entries());
+'use client'
 
-    console.log(formData);
- }
+import { authClient } from "@/lib/auth-client";
+import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
+import { useRouter } from "next/navigation";
+
+import { useState } from "react";
+const SignupForm = () => {
+
+    
+const router = useRouter();
+      const [confirmError, setConfirmError] = useState("");
+ const Registration = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const userData = Object.fromEntries(formData.entries());
+        // console.log(userData)
+
+        
+    // Password Match Check
+    if (userData.password !== userData.confirmPassword) {
+      setConfirmError("Passwords do not match");
+      return;
+    }
+
+    setConfirmError("");
+        const { data, error } = await authClient.signUp.email({
+    name: userData.name, // required
+    email: userData.email, // required
+    password: userData.password, // required
+    profile: userData.profile, // optional
+    // callbackURL: "https://example.com/callback",
+
+});
+
+console.log(data,error);
+
+  if (!error) {
+    router.push("/dashboard");
+  }
+ 
+    
+    };
 
     return (
       
-            <Form className="flex  flex-col gap-4" onSubmit={onSubmit}>
+            <Form className="flex  flex-col gap-4" onSubmit={Registration}>
       <TextField
         isRequired
         name="name"
@@ -24,7 +58,7 @@ const SignupForm = () => {
       </TextField>
       <TextField
         isRequired
-        name="photoUrl"
+        name="profile"
         type="url"
       >
         <Label className="text-sm font-semibold text-on-surface-variant ml-2">Upload Your Profile URL</Label>
@@ -75,24 +109,18 @@ const SignupForm = () => {
       <TextField
         isRequired
         minLength={8}
-        name="password"
+        name="confirmPassword"
         type="password"
-        validate={(value) => {
-          if (value.length < 8) {
-            return "Password must be at least 8 characters";
-          }
-          if (!/[A-Z]/.test(value)) {
-            return "Password must contain at least one uppercase letter";
-          }
-          if (!/[0-9]/.test(value)) {
-            return "Password must contain at least one number";
-          }
-
-          return null;
-        }}
       >
         <Label className="text-sm font-semibold text-on-surface-variant ml-2">Confirm Password</Label>
         <Input placeholder="Enter your password" />
+        {/* <FieldError /> */}
+
+        {confirmError && (
+          <p className="text-sm text-red-500 mt-1 ml-2">
+            {confirmError}
+          </p>
+        )}
 
         <FieldError />
       </TextField>
