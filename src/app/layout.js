@@ -31,7 +31,7 @@ suppressHydrationWarning
         {/* <Providers> */}
 
           <Navbar />
-          <div className="container mx-auto">
+          <div >
           {children}
 
           </div>

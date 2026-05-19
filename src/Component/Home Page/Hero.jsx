@@ -1,12 +1,19 @@
+'use client'
+import { useTheme } from 'next-themes';
+
 import Image from 'next/image';
 import React from 'react';
+import Marquee from 'react-fast-marquee';
 import { CiPlay1 } from 'react-icons/ci';
 import { FaArrowRight, FaHeart } from 'react-icons/fa';
 import { FaStar } from "react-icons/fa";
 import { MdOutlineVolunteerActivism, MdVolunteerActivism } from 'react-icons/md';
 
 
+
 const Hero = () => {
+      const { theme, setTheme } = useTheme();
+  
     return (
         <div>
              <section className="relative overflow-hidden py-20 lg:py-24">
@@ -127,6 +134,59 @@ const Hero = () => {
             </div>
           </div>
         </section>
+         {/* <div className="bg-pri/10 text-white py-5 overflow-hidden whitespace-nowrap border-y border-pri/10"> */}
+{/* Marquee */}
+<div
+  className={`py-5 overflow-hidden border-y transition-colors duration-300 ${
+    theme === 'dark'
+      ? 'bg-white/[0.03] border-white/10'
+      : 'bg-pri/5 border-pri/10'
+  }`}
+>
+  <Marquee
+    speed={50}
+    gradient={false}
+    className="flex items-center gap-10"
+  >
+    {[
+      'Find Your Best Friend',
+      'Adopt • Love • Care',
+      'Every Paw Deserves Love',
+      'Give Pets a Happy Home',
+      'Trusted Pet Adoption',
+    ].map((text, index) => (
+      <div
+        key={index}
+        className="mx-8 flex items-center gap-8"
+      >
+        <h2
+          className={`text-3xl md:text-5xl font-extrabold uppercase tracking-wider whitespace-nowrap transition-colors duration-300 ${
+            theme === 'dark'
+              ? 'text-transparent'
+              : 'text-transparent'
+          }`}
+          style={{
+            WebkitTextStroke:
+              theme === 'dark'
+                ? '1.5px rgba(255,255,255,0.25)'
+                : '1.5px #A93700',
+          }}
+        >
+          {text}
+        </h2>
+
+        <div
+          className={`w-3 h-3 rounded-full ${
+            theme === 'dark'
+              ? 'bg-white/30'
+              : 'bg-pri'
+          }`}
+        />
+      </div>
+    ))}
+  </Marquee>
+</div>
+     
             
             
         </div>
