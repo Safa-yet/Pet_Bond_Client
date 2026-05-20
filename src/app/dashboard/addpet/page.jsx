@@ -1,44 +1,38 @@
-// 'use client'
 
-// import React, { useState } from 'react';
-import {
-  FaDog,
-  FaCat,
-  FaMapMarkerAlt,
-  FaMoneyBillWave,
-} from 'react-icons/fa';
-
-import {
-  MdPets,
-  MdVaccines,
-  MdImage,
-} from 'react-icons/md';
 import { redirect } from 'next/navigation';
 
 
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Button, FieldError, Form, Input, Label, TextArea, TextField } from '@heroui/react';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
-const AddPet = () => {
+const AddPet = async() => {
+  
+const session = await auth.api.getSession({
+    headers: await headers() // you need to pass the headers object.
+})
+const user = session?.user;
+console.log(session);
   const addPet = async (formData) => {
 
     'use server';
     const fromInfo = Object.fromEntries(formData.entries());
     console.log('Form Data:', fromInfo);
-    // const res = await fetch(`${process.env.SERVER_URL}/animal`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(fromInfo),
-    // });
-    // const data = await res.json();
-    // if (data.insertedId) {
-    //   redirect('/dashboard');
-    // }
+    const res = await fetch(`${process.env.SERVER_URL}/animal`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fromInfo),
+    });
+    const data = await res.json();
+    if (data.insertedId) {
+      redirect('/dashboard');
+    }
 
 
-    // console.log('Response:', data);
+    console.log('Response:', data);
 
     // return data;
 
@@ -98,7 +92,7 @@ const AddPet = () => {
               isRequired
               name="useremail"
               type="text"
-              defaultValue={"Safayet#15gamilbaskldf"}
+              defaultValue={user.email}
               isReadOnly
 
             >
