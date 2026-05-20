@@ -11,9 +11,7 @@ export default async function  AllPetsPage() {
     const petCollection = await AllAnimal();
   return (
     <div className="min-h-screen bg-[#f4fafd] text-[#161d1f]">
-      {/* Header */}
-   
-      {/* Main */}
+ 
       <main className="mx-auto max-w-7xl px-4 pb-20 pt-32 lg:px-10">
         {/* Search & Filter */}
         <section className="mb-14 rounded-[32px] border border-gray-200 bg-white p-8 shadow-sm">

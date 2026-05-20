@@ -1,318 +1,366 @@
-"use client";
-
+import { getSingleApi } from "@/lib/CallApi";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PetDetailsPage() {
+import {
+  FaMapMarkerAlt,
+  FaVenusMars,
+  FaBirthdayCake,
+  FaDog,
+  FaHeart,
+  FaShieldAlt,
+  FaSyringe,
+  FaPaw,
+} from "react-icons/fa";
+
+import { MdPayments, MdVerified } from "react-icons/md";
+
+export default async function PetDetailsPage({ params }) {
+  const { id } = await params;
+
+  const pet = await getSingleApi(id);
+  console.log('details',pet);
+
+  // const {petName,age,breed, description,gender,healthStatus,image,vaccinationStatus,_id,email,adoptationFee}= pet;
+
   return (
     <div className="min-h-screen bg-[#f4fafd] text-[#161d1f]">
+      {/* ================= HERO ================= */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#ffefe8] via-[#f4fafd] to-[#dceeff]" />
 
-      <main className="pb-20">
-        {/* Hero Section */}
-        <section className="mx-auto mt-10 max-w-7xl px-4 lg:px-10">
-          <div className="group relative h-[400px] overflow-hidden rounded-[32px] shadow-2xl md:h-[600px]">
-            <Image
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsctk2__XL3dHtuygTd4p3QVnM9OQT19v835Tmopq5ESB5IJg4mbItCGm4PssvCI4yio76m4DqOxo0GMWoW-eAOa3N42wSifXmxyOYDxDqPy_WRwENxrKIUn5eqqqePUoGQ8HvRhwrMLpKmtcp61sipQqeOoT7OL_axQPRukFTD7WqjXAYRRDLvMsqG0ngxz9py9WvCMELfEap3jhnjQVq8Au07El_l8Xz7X7FWUWaZfWLwMgZ4tMcWgzAX-VyUaH19Am3nsY-OGVG"
-              alt="Luna the Golden Retriever"
-              fill
-              className="object-cover transition duration-700 group-hover:scale-105"
-            />
+        <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-10 lg:px-8">
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            {/* LEFT CONTENT */}
+            <div>
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#ffdbcf] px-4 py-2 text-sm font-semibold text-[#812800] shadow-sm">
+                <MdVerified className="text-lg" />
+                Available For Adoption
+              </div>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <h1 className="mb-5 text-4xl font-extrabold leading-tight text-[#161d1f] md:text-6xl">
+                {pet?.petName}{" "}
+                <span className="text-[#812800]">
+                  {pet?.breed || "Golden Retriever"}
+                </span>
+              </h1>
 
-            <div className="absolute bottom-0 left-0 w-full p-8">
-              <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-                <div>
-                  <span className="mb-4 inline-block rounded-full bg-[#ffdbcf] px-4 py-2 text-sm font-semibold text-[#812800]">
-                    Available for Adoption
+              <p className="max-w-2xl text-lg leading-relaxed text-[#5d6669]">
+                {pet?.description ||
+                  "Meet your future best friend. A loving, playful, and caring pet looking for a forever home filled with warmth and happiness."}
+              </p>
+
+              {/* INFO ROW */}
+              <div className="mt-8 flex flex-wrap gap-4">
+                <div className="flex items-center gap-2 rounded-2xl bg-white px-5 py-3 shadow-sm">
+                  <FaMapMarkerAlt className="text-[#812800]" />
+                  <span className="font-medium text-[#4f5a5d]">
+                    {pet?.location || "Dhaka"}
                   </span>
-
-                  <h1 className="text-4xl font-extrabold text-white md:text-6xl">
-                    Luna the Golden Retriever
-                  </h1>
                 </div>
 
-                <div className="flex items-center gap-2 text-lg text-white">
-                  📍 <span>Seattle, WA</span>
+                <div className="flex items-center gap-2 rounded-2xl bg-white px-5 py-3 shadow-sm">
+                  <FaBirthdayCake className="text-[#812800]" />
+                  <span className="font-medium text-[#4f5a5d]">
+                    {pet?.age || "2 Years"}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 rounded-2xl bg-white px-5 py-3 shadow-sm">
+                  <FaVenusMars className="text-[#812800]" />
+                  <span className="font-medium text-[#4f5a5d]">
+                    {pet?.gender || "Female"}
+                  </span>
+                </div>
+              </div>
+
+              {/* BUTTONS */}
+              <div className="mt-10 flex flex-wrap gap-4">
+                <button className="rounded-full bg-[#812800] px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  Adopt Now
+                </button>
+
+                <button className="rounded-full border border-[#812800]/20 bg-white px-8 py-4 text-lg font-semibold text-[#812800] transition hover:bg-[#fff4ef]">
+                  Save Pet
+                </button>
+              </div>
+            </div>
+
+            {/* RIGHT IMAGE */}
+            <div className="relative">
+              <div className="absolute -left-10 top-10 h-40 w-40 rounded-full bg-[#ffdbcf] blur-3xl" />
+              <div className="absolute bottom-0 right-0 h-52 w-52 rounded-full bg-[#d3e3ff] blur-3xl" />
+
+              <div className="relative overflow-hidden rounded-[40px] border border-white/50 bg-white/60 shadow-2xl backdrop-blur-xl">
+                <div className="relative h-[350px] w-full md:h-[550px]">
+                  <Image
+                    src={
+                      pet?.image ||
+                      "https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=1200&auto=format&fit=crop"
+                    }
+                    alt={pet?.petName || "Pet"}
+                    fill
+                    className="object-cover transition duration-700 hover:scale-105"
+                  />
+                </div>
+
+                {/* FLOAT CARD */}
+                <div className="absolute bottom-5 left-5 rounded-3xl border border-white/40 bg-white/80 p-5 shadow-xl backdrop-blur-md">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#812800] text-white">
+                      <FaHeart className="text-xl" />
+                    </div>
+
+                    <div>
+                      <p className="text-sm text-gray-500">
+                        Adoption Fee
+                      </p>
+
+                      <h3 className="text-2xl font-bold text-[#812800]">
+                        ${pet?.adoptionFee || 250}
+                      </h3>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Content */}
-        <section className="mx-auto mt-16 max-w-7xl px-4 lg:px-10">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-            {/* Left */}
-            <div className="space-y-10 lg:col-span-8">
-              {/* Stats */}
-              <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
+      {/* ================= CONTENT ================= */}
+      <section className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-12">
+          {/* LEFT SIDE */}
+          <div className="space-y-10 lg:col-span-8">
+            {/* QUICK STATS */}
+            <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
+              {[
+                {
+                  icon: <FaDog />,
+                  title: "Breed",
+                  value: pet?.breed || "Golden",
+                },
+                {
+                  icon: <FaBirthdayCake />,
+                  title: "Age",
+                  value: pet?.age || "2 Years",
+                },
+                {
+                  icon: <FaVenusMars />,
+                  title: "Gender",
+                  value: pet?.gender || "Female",
+                },
+                {
+                  icon: <MdPayments />,
+                  title: "Fee",
+                  value: `$${pet?.adoptionFee || 250}`,
+                },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="rounded-[30px] border border-[#e0c0b5]/30 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                >
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff4ef] text-2xl text-[#812800]">
+                    {item.icon}
+                  </div>
+
+                  <p className="text-sm text-gray-500">
+                    {item.title}
+                  </p>
+
+                  <h3 className="mt-2 text-2xl font-bold">
+                    {item.value}
+                  </h3>
+                </div>
+              ))}
+            </div>
+
+            {/* HEALTH TAGS */}
+            <div className="rounded-[32px] bg-white p-8 shadow-sm">
+              <h2 className="mb-6 text-3xl font-bold text-[#161d1f]">
+                Health Information
+              </h2>
+
+              <div className="flex flex-wrap gap-4">
                 {[
                   {
-                    title: "Breed",
-                    value: "Golden",
-                    icon: "🐶",
+                    label: "Vaccinated",
+                    icon: <FaSyringe />,
                   },
                   {
-                    title: "Age",
-                    value: "2 Years",
-                    icon: "📅",
+                    label: "Microchipped",
+                    icon: <FaShieldAlt />,
                   },
                   {
-                    title: "Gender",
-                    value: "Female",
-                    icon: "♀",
+                    label: "Friendly",
+                    icon: <FaHeart />,
                   },
                   {
-                    title: "Fee",
-                    value: "$250",
-                    icon: "💳",
+                    label: "Healthy",
+                    icon: <FaPaw />,
                   },
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="rounded-[28px] border border-gray-200 bg-white p-6 text-center shadow-sm"
+                    className="flex items-center gap-3 rounded-full bg-[#ede0d8] px-5 py-3 font-medium text-[#211a16]"
                   >
-                    <div className="mb-3 text-3xl">{item.icon}</div>
+                    <span className="text-[#812800]">
+                      {item.icon}
+                    </span>
 
-                    <p className="text-sm text-gray-500">{item.title}</p>
-
-                    <h3 className="mt-1 text-2xl font-bold text-[#161d1f]">
-                      {item.value}
-                    </h3>
+                    {item.label}
                   </div>
                 ))}
               </div>
+            </div>
 
-              {/* Health Tags */}
-              <div className="flex flex-wrap gap-3">
-                {["Vaccinated", "Microchipped", "Neutered"].map(
-                  (tag, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-2 rounded-full bg-[#ede0d8] px-5 py-3 font-medium text-[#211a16]"
-                    >
-                      ✅ {tag}
-                    </div>
-                  )
-                )}
-              </div>
+            {/* ABOUT */}
+            <div className="rounded-[32px] bg-white p-8 shadow-sm">
+              <h2 className="mb-6 text-4xl font-bold text-[#812800]">
+                About {pet?.petName || "Luna"}
+              </h2>
 
-              {/* About */}
-              <article>
-                <h2 className="mb-6 text-4xl font-bold text-[#812800]">
-                  About Luna
-                </h2>
+              <div className="space-y-5 text-lg leading-relaxed text-[#5d6669]">
+                <p>
+                  {pet?.description ||
+                    "This adorable pet is full of love, energy, and affection. Perfect for families, individuals, or anyone looking for a loyal companion."}
+                </p>
 
-                <div className="space-y-5 text-lg leading-relaxed text-gray-600">
-                  <p>
-                    Luna is a sunbeam in canine form. At 2 years old, she has
-                    the perfect balance of youthful energy and gentle maturity.
-                    Found as a stray in downtown Seattle, she has quickly become
-                    a favorite among our volunteers.
-                  </p>
-
-                  <p>
-                    She thrives in environments where she can get plenty of
-                    outdoor activity but is equally content to curl up at your
-                    feet while you work. Luna is excellent with other dogs and
-                    children.
-                  </p>
-                </div>
-              </article>
-
-              {/* Map Preview */}
-              <div className="relative h-[320px] overflow-hidden rounded-[32px] border border-gray-200">
-                <Image
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBei_PZlRkZv16hZ9_hdgkDE9l9q5mWAWggnBAW1laFAMnb0674QH-ukrzkKeQo2N8LLRNx4Bu7PsRo4qbNGHvPZ4Y_6yqA8flfcIo8Q6dR6sZzWcD1XMk2agYRK2i1GDxK3nXAPqtjPOriNOMwkkvf22ss-e6qneF8Z8ucROAKysJjgdxxkOFoo8uYTVM2sBf--yCNKKfZbGkyoNX7kKytZJABE4amlUrZkoj71fVom0aPv9FSCxQ3fbzPgyBcsnT9v6B6gxuHYwxA"
-                  alt="Map"
-                  fill
-                  className="object-cover opacity-70"
-                />
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="rounded-3xl border border-[#812800]/20 bg-white/90 p-6 shadow-xl backdrop-blur-md">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">📍</span>
-
-                      <div>
-                        <p className="text-sm text-gray-500">
-                          Meet Luna at
-                        </p>
-
-                        <h3 className="text-xl font-bold text-[#812800]">
-                          Maw Care Seattle Center
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <p>
+                  They enjoy outdoor activities, playful moments, and cozy naps.
+                  Looking for a forever home where they can receive endless care
+                  and love.
+                </p>
               </div>
             </div>
 
-            {/* Right Form */}
-            <aside className="lg:col-span-4">
-              <div className="sticky top-28 rounded-[32px] border border-gray-200 bg-white p-8 shadow-xl">
-                <div className="mb-8 flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#ffdbcf] text-2xl">
-                    ❤️
-                  </div>
+            {/* LOCATION */}
+            <div className="relative overflow-hidden rounded-[32px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#812800] to-[#0060ab]" />
 
-                  <h3 className="text-3xl font-bold">Adopt Luna</h3>
+              <div className="relative flex flex-col gap-8 p-10 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <p className="mb-3 text-white/70">
+                    Current Location
+                  </p>
+
+                  <h3 className="text-4xl font-bold text-white">
+                    {pet?.location || "Dhaka, Bangladesh"}
+                  </h3>
                 </div>
 
-                <form className="space-y-5">
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-500">
-                      Pet Name
-                    </label>
-
-                    <input
-                      type="text"
-                      value="Luna the Golden Retriever"
-                      readOnly
-                      className="w-full cursor-not-allowed rounded-full border border-gray-200 bg-gray-100 px-5 py-3"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-500">
-                      Your Name
-                    </label>
-
-                    <input
-                      type="text"
-                      value="Jane Doe"
-                      readOnly
-                      className="w-full cursor-not-allowed rounded-full border border-gray-200 bg-gray-100 px-5 py-3"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-500">
-                      Email Address
-                    </label>
-
-                    <input
-                      type="email"
-                      value="jane.doe@example.com"
-                      readOnly
-                      className="w-full cursor-not-allowed rounded-full border border-gray-200 bg-gray-100 px-5 py-3"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-500">
-                      Preferred Pickup Date
-                    </label>
-
-                    <input
-                      type="date"
-                      className="w-full rounded-full border border-gray-300 px-5 py-3 outline-none focus:border-[#812800]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-500">
-                      Message for the Caretaker
-                    </label>
-
-                    <textarea
-                      rows={4}
-                      placeholder="Tell us about your home..."
-                      className="w-full resize-none rounded-3xl border border-gray-300 px-5 py-4 outline-none focus:border-[#812800]"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="mt-4 w-full rounded-full bg-[#812800] py-4 text-lg font-bold text-white shadow-md transition hover:scale-[1.02]"
-                  >
-                    Submit Adoption Request
-                  </button>
-
-                  <p className="text-center text-xs text-gray-500">
-                    By submitting, you agree to our adoption screening process
-                    and privacy policy.
-                  </p>
-                </form>
+                <div className="rounded-3xl bg-white/10 p-6 backdrop-blur-lg">
+                  <FaMapMarkerAlt className="text-5xl text-white" />
+                </div>
               </div>
-            </aside>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 bg-[#e8eff1]">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-16 md:grid-cols-4 lg:px-10">
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-[#812800]">Maw Care</h3>
-
-            <p className="text-gray-600">
-              © 2024 Maw Care. Providing heart-first professional pet adoption
-              services.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="mb-4 font-bold uppercase tracking-wider text-[#0060ab]">
-              Navigation
-            </h4>
-
-            <ul className="space-y-2 text-gray-600">
-              <li>
-                <Link href="#">Home</Link>
-              </li>
-
-              <li>
-                <Link href="#">All Pets</Link>
-              </li>
-
-              <li>
-                <Link href="#">Dashboard</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-4 font-bold uppercase tracking-wider text-[#0060ab]">
-              Resources
-            </h4>
-
-            <ul className="space-y-2 text-gray-600">
-              <li>
-                <Link href="#">Volunteer</Link>
-              </li>
-
-              <li>
-                <Link href="#">Contact Us</Link>
-              </li>
-
-              <li>
-                <Link href="#">Privacy Policy</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-4 font-bold uppercase tracking-wider text-[#0060ab]">
-              Newsletter
-            </h4>
-
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full rounded-full border border-gray-300 px-5 py-3 outline-none"
-              />
-
-              <button className="rounded-full bg-[#0060ab] px-5 text-white">
-                ➤
-              </button>
             </div>
           </div>
+
+          {/* RIGHT SIDE */}
+          <aside className="lg:col-span-4">
+            <div className="sticky top-24 rounded-[36px] border border-white/40 bg-white/80 p-8 shadow-2xl backdrop-blur-xl">
+              <div className="mb-8 flex items-center gap-4">
+                <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-[#812800] text-white shadow-lg">
+                  <FaHeart className="text-2xl" />
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-500">
+                    Ready to adopt?
+                  </p>
+
+                  <h2 className="text-3xl font-bold text-[#161d1f]">
+                    Send Request
+                  </h2>
+                </div>
+              </div>
+
+              <form className="space-y-5">
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+                    Pet Name
+                  </label>
+
+                  <input
+                    type="text"
+                    readOnly
+                    value={pet?.petName || "Luna"}
+                    className="w-full rounded-2xl border border-gray-200 bg-gray-100 px-5 py-4 outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+                    Your Name
+                  </label>
+
+                  <input
+                    type="text"
+                    placeholder="Enter your name"
+                    className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none transition focus:border-[#812800]"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+                    Email Address
+                  </label>
+
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none transition focus:border-[#812800]"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+                    Pickup Date
+                  </label>
+
+                  <input
+                    type="date"
+                    className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none transition focus:border-[#812800]"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+                    Message
+                  </label>
+
+                  <textarea
+                    rows={5}
+                    placeholder="Tell us why you want to adopt this pet..."
+                    className="w-full resize-none rounded-3xl border border-gray-300 px-5 py-4 outline-none transition focus:border-[#812800]"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full rounded-2xl bg-[#812800] py-4 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                >
+                  Submit Adoption Request
+                </button>
+              </form>
+
+              {/* EXTRA INFO */}
+              <div className="mt-8 rounded-3xl bg-[#fff4ef] p-5">
+                <h4 className="mb-2 font-bold text-[#812800]">
+                  Adoption Policy
+                </h4>
+
+                <p className="text-sm leading-relaxed text-[#5d6669]">
+                  Every adoption request goes through a verification and
+                  approval process to ensure pets find safe and loving homes.
+                </p>
+              </div>
+            </div>
+          </aside>
         </div>
-      </footer>
+      </section>
+
     </div>
   );
 }
