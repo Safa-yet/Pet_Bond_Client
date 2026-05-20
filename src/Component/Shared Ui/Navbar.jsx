@@ -66,10 +66,10 @@ console.log(userProfile,error ,"dashboard");
           Home
         </Link>
         <Link
-          className={pathName === '/about' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors text-sm  uppercase "}
-          href='/about'
+          className={pathName === '/allpet' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors text-sm  uppercase "}
+          href='/allpet'
         >
-          About
+          All Pet
         </Link>
         <Link
           className={pathName === '/destinations' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors text-sm  uppercase "}

@@ -11,6 +11,7 @@ import {
   FaEyeSlash,
 } from 'react-icons/fa';
 import SigninForm from '@/Component/Authnetication Pages/SigninForm';
+import GoogleLogin from '@/Component/Authnetication Pages/GoogleLogin';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -87,19 +88,7 @@ const SignIn = () => {
           </div>
 
           {/* Social */}
-          <div className="grid grid-cols-2 gap-6">
-            <button className="flex items-center justify-center gap-3 h-14 rounded-full border-2 border-outline-variant/30 hover:bg-surface-container transition-all duration-300 active:scale-95">
-              <FaGoogle className="text-xl text-red-500" />
-
-              <span className="font-semibold">Google</span>
-            </button>
-
-            <button className="flex items-center justify-center gap-3 h-14 rounded-full border-2 border-outline-variant/30 hover:bg-surface-container transition-all duration-300 active:scale-95">
-              <FaFacebookF className="text-xl text-blue-600" />
-
-              <span className="font-semibold">Facebook</span>
-            </button>
-          </div>
+       <GoogleLogin></GoogleLogin>
 
           {/* Signup */}
           <p className="mt-12 text-center text-on-surface-variant">

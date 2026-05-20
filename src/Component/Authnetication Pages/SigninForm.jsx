@@ -61,12 +61,12 @@ console.log(data,error ,"From Signin");
         
                 <FieldError />
               </TextField>
-                 <button
+                 <Button
                   type="button"
-                  className="text-pri text-sm font-semibold hover:underline"
+                  className="text-pri bg-transparent text-sm font-semibold hover:underline"
                 >
                   Forgot Password?
-                </button>
+                </Button>
              
         
                 <Button type="submit" size="lg" className="w-full bg-pri text-white hover:bg-pri/80 ">

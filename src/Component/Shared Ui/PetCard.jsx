@@ -1,76 +1,124 @@
+import { Button } from '@heroui/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
+import { BiCake, BiMapPin } from 'react-icons/bi';
+import { BsShieldCheck } from 'react-icons/bs';
+import { GiPawPrint } from 'react-icons/gi';
 
-const PetCard = () => {
-    return (
-        <div>
-           {/* Featured Pets */}
-        <section className="py-xl max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
-          <div className="flex justify-between items-end mb-lg">
+
+const PetCard = ({ petInfo }) => {
+  return (
+    <div className="group bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+      
+      {/* Image Section */}
+      <div className="relative overflow-hidden h-64">
+        <Image
+          src={petInfo?.image}
+          width={500}
+          height={500}
+          alt={petInfo?.petName}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+
+        {/* Gender Badge */}
+        <div className="absolute top-4 right-4">
+          <span className="bg-white/90 backdrop-blur-md text-primary text-xs font-semibold px-3 py-1 rounded-full shadow">
+            {petInfo?.gender}
+          </span>
+        </div>
+
+        {/* Pet Name */}
+        <div className="absolute bottom-4 left-4 text-white">
+          <h2 className="text-2xl font-bold">
+            {petInfo?.petName}
+          </h2>
+
+          <p className="text-sm text-gray-200">
+            {petInfo?.breed || petInfo?.species}
+          </p>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 space-y-4">
+
+        {/* Info Grid */}
+        <div className="grid grid-cols-2 gap-3">
+
+          <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2">
+            <BiCake size={18} className="text-primary" />
             <div>
-              <h2 className="font-headline-lg text-headline-lg text-on-surface mb-xs">
-                Featured Friends
-              </h2>
-
-              <p className="text-on-surface-variant font-body-md">
-                Discover pets waiting for a home like yours.
+              <p className="text-xs text-gray-500">Age</p>
+              <p className="text-sm font-semibold">
+                {petInfo?.age}
               </p>
             </div>
-
-            <button className="text-primary font-bold flex items-center gap-xs hover:gap-sm transition-all group">
-              View All Pets
-              <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">
-                arrow_forward
-              </span>
-            </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-            {/* Card */}
-            <div className="group relative bg-white rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-500 shadow-sm hover:shadow-2xl flex flex-col">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR1rZNlOmHMR9IdAoH4BF-D5Xh4w0hIAOyRDO-XCS3MiYTfmhfRxqoHEVMvQwx13PLcS36zFSEBSAxI5z6LcHljxVCKh3YGIT09HvPxfHiYD-VUklpyv0-ZjCHsI0k2lU4C-gyn75QCR2rNz_qlfaCMyN_JpZxCpvIpHXnmfitOEQMGv1f8AdHp4HlWhvEB_15z3HmxOwQOTG_10XiA2s0Q_VQxGWYcjet_JM_LIO0Iealb7VT61krO7aL5CxSrifLQwBCuNIU1MdA"
-                  alt="Buddy"
-                />
-
-                <div className="absolute top-4 left-4 flex gap-2">
-                  <span className="bg-white/70 backdrop-blur-md text-on-surface text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">
-                    Available
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-6 flex flex-col flex-grow">
-                <div className="flex justify-between items-center mb-1">
-                  <h3 className="font-headline-md text-headline-md text-on-surface tracking-tight">
-                    Buddy
-                  </h3>
-
-                  <div className="flex items-center gap-1 text-on-surface-variant/70 text-[12px] font-medium uppercase tracking-wider">
-                    <span className="material-symbols-outlined text-sm">
-                      location_on
-                    </span>
-
-                    Austin, TX
-                  </div>
-                </div>
-
-                <p className="text-on-surface-variant font-medium text-sm mb-6">
-                  Beagle • 2 Years • Male
-                </p>
-
-                <div className="mt-auto">
-                  <button className="w-full bg-surface-container-low group-hover:bg-primary text-on-surface group-hover:text-on-primary py-4 rounded-2xl font-bold transition-all duration-300">
-                    View Details
-                  </button>
-                </div>
-              </div>
+          <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2">
+            <BiMapPin size={18} className="text-primary" />
+            <div>
+              <p className="text-xs text-gray-500">Location</p>
+              <p className="text-sm font-semibold truncate">
+                {petInfo?.location}
+              </p>
             </div>
           </div>
-        </section>
+
+          <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2">
+            <BsShieldCheck size={18} className="text-primary" />
+            <div>
+              <p className="text-xs text-gray-500">Vaccinated</p>
+              <p className="text-sm font-semibold">
+                {petInfo?.vaccinationstatus}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2">
+            <GiPawPrint size={18} className="text-primary" />
+            <div>
+              <p className="text-xs text-gray-500">Fee</p>
+              <p className="text-sm font-semibold">
+                ${petInfo?.adoptionFee}
+              </p>
+            </div>
+          </div>
         </div>
-    );
+
+        {/* Description */}
+        <p className="text-sm text-gray-600 line-clamp-1 leading-relaxed">
+          {petInfo?.description}
+        </p>
+
+        {/* Buttons */}
+        <div className='flex  gap-5'>
+          <Link className='w-full' href={`/allpet/${petInfo?._id}`}>
+          
+          <Button className="py-3 w-full rounded-xl  bg-pri text-white font-semibold hover:opacity-90 transition">
+            View Details
+          </Button>
+          </Link>
+          <Link className='w-full' href={`/allpet/${petInfo?._id}`}>
+          
+          <Button variant='ghost' className="py-3 w-full rounded-xl  outline-1  font-semibold hover:opacity-90 transition">
+            Adopt
+          </Button>
+          </Link>
+
+
+
+        </div>
+
+
+
+      </div>
+    </div>
+  );
 };
 
 export default PetCard;
