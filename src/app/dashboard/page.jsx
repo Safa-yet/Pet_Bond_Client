@@ -136,71 +136,131 @@ const DashBoard = async () => {
                 </tr>
               </thead>
 
-              <tbody>
-                {myReq.map((pet, index) => (
-                  <tr
-                    key={index}
-                    className="border-t border-outline-variant/10 hover:bg-surface-container-low transition-all duration-300 group"
-                  >
-                    {/* Pet */}
-                    <td className="px-6 py-5">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl overflow-hidden">
-                          <img
-                            src={pet?.image}
-                            alt={pet?.petName}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+             <tbody>
 
-                        <div>
-                          <p className="font-bold">{pet?.petName}</p>
+  {myReq.map((pet, index) => (
 
-                          <p className="text-sm text-on-surface-variant">
-                            {pet.petId}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
+    <tr
+      key={pet._id}
+      className="
+        border-t border-outline-variant/10
+        hover:bg-surface-container-low
+        transition-all duration-300
+        group
+      "
+    >
 
-                    <td className="px-6 py-5 text-on-surface-variant">
-                      {pet.pickupdate}
-                    </td>
+      {/* PET */}
+      <td className="px-6 py-5">
 
-                    <td className="px-6 py-5 text-on-surface-variant">
-                      {pet?.pickup}
-                    </td>
+        <div className="flex items-center gap-4">
 
-                    {/* Status */}
-                    <td className="px-6 py-5">
-                      <span
-                        className={`px-4 py-2 rounded-full text-xs font-bold ${
-                          pet?.status === "Approved"
-                            ? "bg-sec-fixed text-sec"
-                            : pet.status === "Pending"
-                              ? "bg-tertiary-fixed text-tertiary"
-                              : "bg-error-container text-error"
-                        }`}
-                      >
-                        {pet.status}
-                      </span>
-                    </td>
+          {/* Avatar */}
+          <div
+            className="
+              w-12 h-12 rounded-2xl
+              bg-pri/10
+              flex items-center justify-center
+              text-pri font-bold text-lg
+            "
+          >
+            {pet.petName?.slice(0, 1)}
+          </div>
 
-                    {/* Actions */}
-                    <td className="px-6 py-5">
-                      <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        <button className="p-2 rounded-xl hover:bg-pri-fixed text-pri">
-                          <span className="material-symbols-outlined">
-                            visibility
-                          </span>
-                        </button>
-                        <CancleReqBtn token={token} id={pet.petId} ></CancleReqBtn>
-                      
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+          <div>
+
+            <p className="font-bold text-lg">
+              {pet?.petName}
+            </p>
+
+            <p
+              className="
+                text-sm text-on-surface-variant
+                line-clamp-1
+              "
+            >
+              {pet?.message}
+            </p>
+
+          </div>
+        </div>
+      </td>
+
+      {/* REQUEST DATE */}
+      <td className="px-6 py-5 text-on-surface-variant">
+
+        {new Date(
+          pet?.createdAt
+        ).toLocaleDateString()}
+
+      </td>
+
+      {/* PICKUP DATE */}
+      <td className="px-6 py-5 text-on-surface-variant">
+
+        {pet?.pickupDate}
+
+      </td>
+
+      {/* STATUS */}
+      <td className="px-6 py-5">
+
+        <span
+          className={`
+            px-4 py-2 rounded-full
+            text-xs font-bold uppercase
+            ${
+              pet?.status === "approved"
+                ? "bg-green-100 text-green-700"
+
+                : pet?.status === "pending"
+
+                ? "bg-yellow-100 text-yellow-700"
+
+                : "bg-red-100 text-red-700"
+            }
+          `}
+        >
+          {pet?.status}
+        </span>
+
+      </td>
+
+      {/* ACTIONS */}
+      <td className="px-6 py-5">
+
+        <div
+          className="
+            flex justify-end gap-2
+            opacity-0 group-hover:opacity-100
+            transition-all duration-300
+          "
+        >
+
+          {/* View */}
+          <button
+            className="
+              p-2 rounded-xl
+              hover:bg-pri-fixed
+              text-pri
+            "
+          >
+            <span className="material-symbols-outlined">
+              visibility
+            </span>
+          </button>
+
+          {/* Cancel */}
+          <CancleReqBtn
+            token={token}
+            id={pet._id}
+          />
+
+        </div>
+      </td>
+    </tr>
+  ))}
+</tbody>
             </table>
           </div>
 

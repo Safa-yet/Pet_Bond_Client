@@ -72,6 +72,8 @@ export default async function MyListingsPage() {
   const id = myPets?._id;
   console.log("reqqqqqqqq", id);
 
+  console.log(myPets,'petsss');
+
   // Show Request infoooooooo
 
   const requestInfo = await getPetRequestsApi(id, token);
@@ -101,11 +103,11 @@ export default async function MyListingsPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 my-8">
+        <div className="gap-5 flex lg:flex-col my-8">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className={`${stat.bg} relative overflow-hidden rounded-[32px] border border-[#e0c0b5]/40 p-8 shadow-sm`}
+              className={`${stat.bg} relative overflow-hidden rounded-[32px] border border-[#e0c0b5]/40 lg:p-8 p-4 shadow-sm`}
             >
               <div className="relative z-10">
                 <p className="text-sm font-semibold text-[#58423a]">
@@ -161,27 +163,32 @@ export default async function MyListingsPage() {
               className="flex flex-col overflow-hidden rounded-[32px] border border-[#e0c0b5]/40 bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
               {/* Image */}
-              <div className="relative h-[240px] w-full">
-                <Image
-                  src={pet.image}
-                  alt={pet.petName}
-                  fill
-                  className="object-cover"
-                />
+            <div className="relative h-[240px] w-full overflow-hidden rounded-t-3xl">
+ <Image
+           src={pet?.image}
+           width={500}
+           height={500}
+           alt={pet?.petName}
+           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+         />
 
-                {/* Status */}
-                <div className="absolute left-4 top-4">
-                  <span
-                    className={`rounded-full px-4 py-1 text-sm font-semibold shadow-sm ${
-                      pet.adopted
-                        ? "bg-green-200 text-green-800"
-                        : "bg-orange-200 text-[#812800]"
-                    }`}
-                  >
-                    {pet.adopted ? "Adopted" : "Available"}
-                  </span>
-                </div>
-              </div>
+  {/* Status */}
+  <div className="absolute left-4 top-4 z-10">
+    <span
+      className={`
+        rounded-full px-4 py-1
+        text-sm font-semibold shadow-sm
+        ${
+          pet.adopted
+            ? "bg-green-200 text-green-800"
+            : "bg-orange-200 text-[#812800]"
+        }
+      `}
+    >
+      {pet.adopted ? "Adopted" : "Available"}
+    </span>
+  </div>
+</div>
 
               {/* Content */}
               <div className="flex flex-1 flex-col p-6">
