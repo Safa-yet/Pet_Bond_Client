@@ -1,15 +1,17 @@
 "use client";
 import { AlertDialog, Button } from "@heroui/react";
+import { toast } from "react-toastify";
 const RemoveBtn = ({pet}) => {
     const id = pet._id;
     console.log(id,"pet");
 const handleDelete = async() => {
-        const res = await fetch(`http://localhost:8000/animal/${id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal/${id}`, {
             method: 'DELETE',
         });
         const data = await res.json();
         console.log('Delete Response:', data);
         if(data.deletedCount > 0){
+          toast.error("Delete Successfully"),
              window.location.reload();
         }
 

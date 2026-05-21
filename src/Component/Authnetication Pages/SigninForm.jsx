@@ -1,5 +1,6 @@
 import { authClient } from "@/lib/auth-client";
 import {Button, Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
+import { toast } from "react-toastify";
 
 const SigninForm = () => {
      const onSubmit =async (e) => {
@@ -14,6 +15,18 @@ const SigninForm = () => {
     callbackURL: "/",
 });
 console.log(data,error ,"From Signin");
+
+
+  // Error Handle
+  if (error) {
+toast(error.message)
+    return;
+  }
+
+  // Success Handle
+  if (data) {
+toast.success("Congratulations")
+  }
   };
 
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 
 const ExploreSec = () => {
     return (
-        <div>
+        <div className='mx-auto container'>
              <section className="py-20 bg-[#0060ac] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-5xl font-extrabold mb-6">

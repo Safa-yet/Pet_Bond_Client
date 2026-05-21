@@ -37,9 +37,15 @@ console.log(data,error);
 
   if (!error) {
     router.push("/dashboard");
+
   }
- 
-    
+  
+
+    if (error) {
+  toast.error(error.message)
+      return;
+    }
+
     };
 
     return (

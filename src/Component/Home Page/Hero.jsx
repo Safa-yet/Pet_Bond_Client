@@ -1,7 +1,9 @@
 'use client'
+import { Button } from '@heroui/react';
 import { useTheme } from 'next-themes';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import Marquee from 'react-fast-marquee';
 import { CiPlay1 } from 'react-icons/ci';
@@ -15,7 +17,7 @@ const Hero = () => {
       const { theme, setTheme } = useTheme();
   
     return (
-        <div>
+        <div >
              <section className="relative overflow-hidden py-20 lg:py-24">
           <div className=" mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             {/* Left */}
@@ -41,18 +43,21 @@ const Hero = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6">
-                <button className="bg-pri text-lg text-white py-4 px-8 rounded-full hover:scale-105 transition-all shadow-lg flex items-center justify-center gap-2">
+                <Link href={'/allpet'}>
+                <Button className="bg-pri text-lg text-white py-4 px-8 rounded-full hover:scale-105 transition-all shadow-lg flex items-center justify-center gap-2">
                   Adopt a Pet
                   <FaArrowRight />
 
-                </button>
+                </Button>
+                
+                </Link>
 
-                <button className="border-2 border-secondary text-secondary py-4 px-8 rounded-full hover:bg-secondary/5 transition-all flex items-center justify-center gap-2">
+                <Button className="border-2 border-secondary text-secondary py-4 px-8 rounded-full hover:bg-secondary/5 transition-all flex items-center justify-center gap-2">
                  <CiPlay1 />
 
 
                   Success Stories
-                </button>
+                </Button>
               </div>
 
               {/* Users */}

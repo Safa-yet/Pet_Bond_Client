@@ -1,12 +1,14 @@
 import { AllAnimal } from '@/lib/CallApi';
 import React from 'react';
 import PetCard from '../Shared Ui/PetCard';
+import Link from 'next/link';
 
 const PetCollection = async() => {
+  
   const petCollection = await AllAnimal();
   console.log(petCollection);
     return (
-        <div>
+        <div className='mx-auto container'>
             <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 md:px-16">
             <div className="text-center mb-20">

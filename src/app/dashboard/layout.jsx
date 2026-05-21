@@ -3,7 +3,7 @@ import React from 'react';
 
 const DashBoardLayout = ({children}) => {
     return (
-        <div className='container mx-auto flex py-6'>
+        <div className='container mx-auto flex flex-col md:flex-row py-6'>
             <SideBar></SideBar>
 
 

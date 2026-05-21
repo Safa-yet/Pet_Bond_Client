@@ -31,7 +31,7 @@ const navLinks = [
 const SideBar = () => {
   const pathname = usePathname();
 
-  return (
+  return (<>
     <aside className="hidden md:flex flex-col w-72 shrink-0 gap-6">
 
       {/* Navigation */}
@@ -163,6 +163,68 @@ const SideBar = () => {
         </div>
       </div>
     </aside>
+
+    <nav className='md:hidden block'>
+       {/* Navigation */}
+      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 border border-gray-200 shadow-xl">
+
+        <p className="text-gray-400 uppercase tracking-[0.2em] text-xs font-semibold mb-6">
+          Management
+        </p>
+
+        <div className="space-y-3  ">
+
+          {navLinks.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = item.icon;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`
+                  group relative flex items-center gap-4 px-4 py-3 rounded-2xl
+                  transition-all duration-300 overflow-hidden
+                  ${
+                    isActive
+                      ? 'bg-pri text-white shadow-lg'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }
+                `}
+              >
+
+                {/* Active Glow */}
+                {isActive && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-90"></div>
+                )}
+
+                <div className="relative z-10 flex items-center gap-4">
+
+                  <div
+                    className={`
+                      text-xl transition-transform duration-300
+                      ${isActive ? 'scale-110' : 'group-hover:scale-110'}
+                    `}
+                  >
+                    <Icon />
+                  </div>
+
+                  <span className="font-semibold tracking-wide">
+                    {item.label}
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
+
+     
+
+         
+        </div>
+      </div>
+
+    </nav>
+  </>
   );
 };
 

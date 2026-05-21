@@ -3,6 +3,7 @@
 import { updateRequestStatusApi } from "@/lib/CallApi";
 import { Button } from "@heroui/react";
 import React from "react";
+import { toast } from "react-toastify";
 
 const ReqResponseBtn = ({ data, token }) => {
 
@@ -21,7 +22,7 @@ const ReqResponseBtn = ({ data, token }) => {
         status,
         token
       );
-
+toast("Request Successfull")
     console.log(result);
   };
 

@@ -75,7 +75,7 @@ console.log(userProfile,error ,"dashboard");
           className={pathName === '/dashboard' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
           href='/dashboard'
         >
-          All Pet
+          Dashboard
         </Link>
         </ul>
 

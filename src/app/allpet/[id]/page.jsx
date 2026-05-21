@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 
 import { MdPayments, MdVerified } from "react-icons/md";
+import { toast } from "react-toastify";
 
 export default async function PetDetailsPage({ params }) {
     
@@ -88,7 +89,7 @@ export default async function PetDetailsPage({ params }) {
 
   return (
     <div className="min-h-screen bg-[#f4fafd] text-[#161d1f]">
-      {/* ================= HERO ================= */}
+
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffefe8] via-[#f4fafd] to-[#dceeff]" />
 
