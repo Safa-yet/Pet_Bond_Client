@@ -2,6 +2,7 @@
 import { cancelRequestApi } from "@/lib/CallApi";
 import { Button } from "@heroui/react";
 import React from "react";
+import { toast } from "react-toastify";
 
 const CancleReqBtn = ({ token, id }) => {
   const handleCanle = async () => {
@@ -14,7 +15,7 @@ const CancleReqBtn = ({ token, id }) => {
       console.log(result);
 
       if (result.deletedCount > 0) {
-        alert("Request Cancelled");
+   toast("Successfully Cancled.")
 
         window.location.reload();
       }
@@ -25,10 +26,11 @@ const CancleReqBtn = ({ token, id }) => {
 
   return (
     <Button
+    variant="danger"
       className="p-2 rounded-xl hover:bg-error-container text-error"
       onClick={handleCanle}
     >
-      <span className="material-symbols-outlined">delete</span>
+      <span className="material-symbols-outlined">Delete</span>
     </Button>
   );
 };

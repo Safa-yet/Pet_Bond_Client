@@ -6,6 +6,7 @@ import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Button, FieldError, Form, Input, Label, TextArea, TextField } from '@heroui/react';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
+import { toast } from 'react-toastify';
 
 const AddPet = async() => {
   
@@ -28,7 +29,7 @@ console.log(session);
     });
     const data = await res.json();
     if (data.insertedId) {
-      redirect('/dashboard');
+      redirect('/dashboard/mylisting');
     }
 
 

@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/Component/Shared Ui/Navbar";
 import { Providers } from "./Providers";
 import Footer from "@/Component/Shared Ui/Footer";
+import { ToastContainer } from "react-toastify";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +37,7 @@ suppressHydrationWarning
           {children}
 
           </div>
+                  <ToastContainer />
           <Footer></Footer>
         {/* </Providers> */}
       </body>

@@ -3,9 +3,10 @@ import { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
 import { getMyAdoptionRequestsApi } from "@/lib/CallApi";
 import { headers } from "next/headers";
+import Link from "next/link";
 
 import React from "react";
-import { FaFilter, FaSearch } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaFilter, FaSearch } from "react-icons/fa";
 import { IoIosTimer, IoMdAddCircleOutline } from "react-icons/io";
 import { MdDownloadForOffline, MdVerified } from "react-icons/md";
 
@@ -23,6 +24,19 @@ const DashBoard = async () => {
 
   console.log(myReq, "req Info");
 
+
+  const pendingReq = myReq.filter(
+  (item) => item.status === "pending"
+);
+
+const approvedReq = myReq.filter(
+  (item) => item.status === "approved"
+);
+
+const rejectedReq = myReq.filter(
+  (item) => item.status === "rejected"
+);
+
   return (
     <div className="w-full">
       <main className="flex-1 flex flex-col gap-6 p-6">
@@ -39,46 +53,114 @@ const DashBoard = async () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {/* Card */}
-          <div className="bg-surface-container rounded-3xl p-6 border  border-sec/30 shadow-lg">
-            <div className="flex justify-between items-start mb-5">
-              <IoIosTimer />
+       {/* Stats */}
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
 
-              <span className="bg-pri-fixed text-pri text-xs font-bold px-3 py-1 rounded-full">
-                Pending
-              </span>
-            </div>
+  {/* Pending */}
+  <div
+    className="
+      bg-surface-container rounded-3xl
+      p-6 border border-yellow-300
+      shadow-lg
+    "
+  >
 
-            <h3 className="text-5xl font-extrabold mb-2">04</h3>
+    <div className="flex justify-between items-start mb-5">
 
-            <p className="text-on-surface-variant">Under Review</p>
-          </div>
+      <IoIosTimer className="text-3xl text-yellow-600" />
 
-          {/* Card */}
-          <div className="bg-surface-container rounded-3xl p-6 border  border-sec/30 shadow-lg">
-            <div className="flex justify-between items-start mb-5">
-              <MdVerified />
+      <span
+        className="
+          bg-yellow-100 text-yellow-700
+          text-xs font-bold
+          px-3 py-1 rounded-full
+        "
+      >
+        Pending
+      </span>
 
-              <span className="bg-sec-fixed text-sec text-xs font-bold px-3 py-1 rounded-full">
-                +12%
-              </span>
-            </div>
+    </div>
 
-            <h3 className="text-5xl font-extrabold mb-2">08</h3>
+    <h3 className="text-5xl font-extrabold mb-2">
+      {pendingReq.length}
+    </h3>
 
-            <p className="text-on-surface-variant">Approved Total</p>
-          </div>
+    <p className="text-on-surface-variant">
+      Under Review
+    </p>
 
-          {/* Add New */}
-          <div className="bg-surface-container-highest border-2 border-dashed border-sec/50 rounded-3xl p-6 flex items-center justify-center">
-            <button className=" text-2xl font-bold flex flex-col items-center gap-2 hover:text-pri transition-all duration-300">
-              <IoMdAddCircleOutline />
+  </div>
 
-              <span className="font-semibold">New Request</span>
-            </button>
-          </div>
-        </div>
+  {/* Approved */}
+  <div
+    className="
+      bg-surface-container rounded-3xl
+      p-6 border border-green-300
+      shadow-lg
+    "
+  >
+
+    <div className="flex justify-between items-start mb-5">
+
+      <MdVerified className="text-3xl text-green-600" />
+
+      <span
+        className="
+          bg-green-100 text-green-700
+          text-xs font-bold
+          px-3 py-1 rounded-full
+        "
+      >
+        Approved
+      </span>
+
+    </div>
+
+    <h3 className="text-5xl font-extrabold mb-2">
+      {approvedReq.length}
+    </h3>
+
+    <p className="text-on-surface-variant">
+      Successfully Approved
+    </p>
+
+  </div>
+
+  {/* Rejected */}
+  <div
+    className="
+      bg-surface-container rounded-3xl
+      p-6 border border-red-300
+      shadow-lg
+    "
+  >
+
+    <div className="flex justify-between items-start mb-5">
+
+      <IoMdAddCircleOutline className="text-3xl text-red-600" />
+
+      <span
+        className="
+          bg-red-100 text-red-700
+          text-xs font-bold
+          px-3 py-1 rounded-full
+        "
+      >
+        Rejected
+      </span>
+
+    </div>
+
+    <h3 className="text-5xl font-extrabold mb-2">
+      {rejectedReq.length}
+    </h3>
+
+    <p className="text-on-surface-variant">
+      Declined Requests
+    </p>
+
+  </div>
+</div>
 
         {/* TABLE */}
         <div className="bg-surface rounded-3xl border border-outline-variant/20 shadow-xl overflow-hidden">
@@ -232,23 +314,14 @@ const DashBoard = async () => {
         <div
           className="
             flex justify-end gap-2
-            opacity-0 group-hover:opacity-100
+            
             transition-all duration-300
           "
         >
 
           {/* View */}
-          <button
-            className="
-              p-2 rounded-xl
-              hover:bg-pri-fixed
-              text-pri
-            "
-          >
-            <span className="material-symbols-outlined">
-              visibility
-            </span>
-          </button>
+          <Link href={`/`}>
+          View Details</Link>
 
           {/* Cancel */}
           <CancleReqBtn
@@ -270,7 +343,7 @@ const DashBoard = async () => {
 
             <div className="flex items-center gap-2">
               <button className="w-10 h-10 rounded-full hover:bg-surface-container-high transition-all duration-300 flex items-center justify-center">
-                <span className="material-symbols-outlined">chevron_left</span>
+                <span className="material-symbols-outlined"><FaChevronLeft /></span>
               </button>
 
               <button className="w-10 h-10 rounded-full bg-pri text-white font-bold">
@@ -282,7 +355,7 @@ const DashBoard = async () => {
               </button>
 
               <button className="w-10 h-10 rounded-full hover:bg-surface-container-high transition-all duration-300 flex items-center justify-center">
-                <span className="material-symbols-outlined">chevron_right</span>
+                <span className="material-symbols-outlined"><FaChevronRight /></span>
               </button>
             </div>
           </div>
