@@ -312,7 +312,7 @@ export default async function PetDetailsPage({ params }) {
 
           {/* RIGHT SIDE */}{
             pet?.adopted?(
-                <div className="rounded-3xl bg-red-50 border border-red-200 p-6 text-center">
+                <div className=" w-full  text-center">
 
       <h2 className="text-3xl font-bold text-red-500">
         Already Adopted
