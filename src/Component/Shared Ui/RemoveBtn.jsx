@@ -19,7 +19,7 @@ const handleDelete = async() => {
   return (
     <>
       <AlertDialog>
-        <Button variant="danger">Delete Project</Button>
+        <Button variant="danger">Delete Pet</Button>
         <AlertDialog.Backdrop>
           <AlertDialog.Container>
             <AlertDialog.Dialog className="sm:max-w-[400px]">
@@ -27,7 +27,7 @@ const handleDelete = async() => {
               <AlertDialog.Header>
                 <AlertDialog.Icon status="danger" />
                 <AlertDialog.Heading>
-                  Delete project permanently?
+                  Delete pet permanently?
                 </AlertDialog.Heading>
               </AlertDialog.Header>
               <AlertDialog.Body>
@@ -46,7 +46,7 @@ const handleDelete = async() => {
                   variant="danger"
                   onClick={() => handleDelete()}
                 >
-                  Delete Project
+                  Delete Pet
                 </Button>
               </AlertDialog.Footer>
             </AlertDialog.Dialog>

@@ -21,7 +21,8 @@ const handleStatus = async (id, status) => {
     <div className="space-y-4">
       {data?.map((req) => (
         <div key={req._id} className="rounded-xl border p-4">
-          <h2 className="text-xl font-bold">{req.requesterName}</h2>
+          <h1 className="font-bold text-xl text-pri">{req.petName}</h1>
+          <h2 className="text-lg font-bold">{req.requesterName}</h2>
 
           <p>{req.requesterEmail}</p>
 

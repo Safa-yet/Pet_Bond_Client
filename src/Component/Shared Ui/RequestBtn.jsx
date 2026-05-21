@@ -27,14 +27,14 @@ console.log(data);
   return (
     <>
       <Modal>
-        <Button variant="secondary">Request</Button>
+        <Button className='bg-sec text-white'>Request</Button>
         <Modal.Backdrop>
           <Modal.Container>
             <Modal.Dialog className="sm:max-w-[360px]">
               <Modal.CloseTrigger />
               <Modal.Header>
                 <Modal.Icon className="bg-default text-foreground"></Modal.Icon>
-                <Modal.Heading>Welcome to HeroUI</Modal.Heading>
+                <Modal.Heading>All Adopt Request List</Modal.Heading>
               </Modal.Header>
               <Modal.Body>
                 {data?.length === 0 && <p>No Requests Yet</p>}

@@ -103,7 +103,7 @@ export default async function MyListingsPage() {
         </div>
 
         {/* Stats */}
-        <div className="gap-5 flex lg:flex-col my-8">
+        <div className="gap-5 flex-col flex md:flex-row my-8">
           {stats.map((stat, index) => (
             <div
               key={index}
@@ -234,7 +234,7 @@ export default async function MyListingsPage() {
                     <RequestBtn pet={pet} token={token} />
 
                     <Link href={`/allpet/${pet._id}`}>
-                      <Button className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0060ab] py-3 text-sm font-semibold text-white transition hover:shadow-lg">
+                      <Button className="flex w-full items-center  justify-center gap-2 rounded-full bg-green-400 py-3 px-3  text-sm font-semibold text-white transition hover:shadow-lg">
                         <MdVisibility className="text-lg" />
                         View Details
                       </Button>

@@ -30,16 +30,16 @@ const EditBtn = async({ pet }) => {
   return (
     <>
  <Modal>
-      <Button variant="secondary">Open Contact Form</Button>
+      <Button variant="secondary">Edit</Button>
       <Modal.Backdrop>
         <Modal.Container placement="auto">
-          <Modal.Dialog className="sm:max-w-md">
+          <Modal.Dialog className="sm:max-w-lg">
             <Modal.CloseTrigger />
             <Modal.Header>
               <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
                 {/* <Envelope className="size-5" /> */}
               </Modal.Icon>
-              <Modal.Heading>Contact Us</Modal.Heading>
+              <Modal.Heading>Edit Your Pets</Modal.Heading>
               <p className="mt-1.5 text-sm leading-5 text-muted">
                 Fill out the form below and well get back to you. The modal adapts automatically
                 when the keyboard appears on mobile.
@@ -267,7 +267,7 @@ const EditBtn = async({ pet }) => {
               <Button slot="close" variant="secondary">
                 Cancel
               </Button>
-              <Button slot="close" type="submit">Send Message</Button>
+              <Button slot="close" type="submit">Submit</Button>
             </Modal.Footer>
 
                 </form>
