@@ -92,6 +92,7 @@ export const getPetRequestsApi = async (petId, token) => {
 
 export const updateRequestStatusApi = async (
   id,
+  petId,
   status,
   token
 ) => {
@@ -108,13 +109,13 @@ export const updateRequestStatusApi = async (
 
       body: JSON.stringify({
         status,
+        petId,
       }),
     }
   );
 
   return res.json();
 };
-
 
 
 

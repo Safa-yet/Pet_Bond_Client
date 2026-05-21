@@ -19,6 +19,8 @@ console.log(session);
 
     'use server';
     const fromInfo = Object.fromEntries(formData.entries());
+
+  fromInfo.adopted = false;
     console.log('Form Data:', fromInfo);
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal`, {
       method: 'POST',
@@ -38,13 +40,7 @@ console.log(session);
     // return data;
 
   }
-  //       const [confirmError, setConfirmError] = useState("");
-  // if (userData.password !== userData.confirmPassword) {
-  //   setConfirmError("Passwords do not match");
-  //   return;
-  // }
 
-  // setConfirmError("");
   return (
     <main className="flex-1  px-6 lg:px-16">
 

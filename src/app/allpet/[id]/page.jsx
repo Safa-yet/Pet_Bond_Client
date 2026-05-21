@@ -310,8 +310,21 @@ export default async function PetDetailsPage({ params }) {
             </div>
           </div>
 
-          {/* RIGHT SIDE */}
-          <aside className="lg:col-span-4">
+          {/* RIGHT SIDE */}{
+            pet?.adopted?(
+                <div className="rounded-3xl bg-red-50 border border-red-200 p-6 text-center">
+
+      <h2 className="text-3xl font-bold text-red-500">
+        Already Adopted
+      </h2>
+
+      <p className="mt-3 text-gray-600">
+        This pet already found a loving home.
+      </p>
+
+    </div>
+            ):(
+<aside className="lg:col-span-4">
             <div className="sticky top-24 rounded-[36px] border border-white/40 bg-white/80 p-8 shadow-2xl backdrop-blur-xl">
               <div className="mb-8 flex items-center gap-4">
                 <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-[#812800] text-white shadow-lg">
@@ -423,6 +436,10 @@ export default async function PetDetailsPage({ params }) {
               </div>
             </div>
           </aside>
+
+            )
+          }
+          
         </div>
       </section>
     </div>
