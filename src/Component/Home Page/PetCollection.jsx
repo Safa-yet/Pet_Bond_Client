@@ -22,7 +22,7 @@ const PetCollection = async() => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {
-                petCollection.map((petInfo)=><PetCard key={petInfo._id} petInfo={petInfo}></PetCard>)
+                petCollection.slice(0,6).map((petInfo)=><PetCard key={petInfo._id} petInfo={petInfo}></PetCard>)
 
               }
               

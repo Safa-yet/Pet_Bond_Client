@@ -1,7 +1,12 @@
 import EditBtn from "@/Component/Shared Ui/EditBtn";
 import RemoveBtn from "@/Component/Shared Ui/RemoveBtn";
+import RequestBtn from "@/Component/Shared Ui/RequestBtn";
 import { auth } from "@/lib/auth";
-import { approveRequestApi, getPetRequestsApi, MyAddAnimal } from "@/lib/CallApi";
+import {
+  approveRequestApi,
+  getPetRequestsApi,
+  MyAddAnimal,
+} from "@/lib/CallApi";
 import { Button } from "@heroui/react";
 import { headers } from "next/headers";
 import Image from "next/image";
@@ -29,7 +34,7 @@ export default async function MyListingsPage() {
 
   const user = session?.user;
 
-  const myPets = await MyAddAnimal(user?.email, token);
+  const myPets = await MyAddAnimal(user?.email);
 
   const totalListings = myPets?.length || 0;
   const adoptedPets = 0;
@@ -65,14 +70,13 @@ export default async function MyListingsPage() {
   ];
 
   const id = myPets?._id;
-console.log("reqqqqqqqq",id);
+  console.log("reqqqqqqqq", id);
 
-// Show Request infoooooooo
+  // Show Request infoooooooo
 
-const requestInfo = await getPetRequestsApi(id,token)
+  const requestInfo = await getPetRequestsApi(id, token);
 
-
-console.log(requestInfo,"request info");
+  console.log(requestInfo, "request info");
   return (
     <div className="min-h-screen bg-[#f4fafd] text-[#161d1f] font-sans">
       <main className="mx-auto max-w-7xl px-4 pb-20 md:px-12">
@@ -213,19 +217,22 @@ console.log(requestInfo,"request info");
                   {/* Top Buttons */}
                   <div className="grid grid-cols-2 gap-3">
                     {/* Edit */}
-                    <EditBtn pet={pet} ></EditBtn>
+                    <EditBtn pet={pet}></EditBtn>
 
                     {/* Delete */}
                     <RemoveBtn pet={pet}></RemoveBtn>
                   </div>
 
-                  {/* View Details */}
-                  <Link href={`/pets/${pet._id}`}>
-                    <Button className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0060ab] py-3 text-sm font-semibold text-white transition hover:shadow-lg">
-                      <MdVisibility className="text-lg" />
-                      View Details
-                    </Button>
-                  </Link>
+                  <div className="grid grid-cols-2 gap-3">
+                    <RequestBtn pet={pet} token={token} />
+
+                    <Link href={`/allpet/${pet._id}`}>
+                      <Button className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0060ab] py-3 text-sm font-semibold text-white transition hover:shadow-lg">
+                        <MdVisibility className="text-lg" />
+                        View Details
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

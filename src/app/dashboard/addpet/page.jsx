@@ -19,7 +19,7 @@ console.log(session);
     'use server';
     const fromInfo = Object.fromEntries(formData.entries());
     console.log('Form Data:', fromInfo);
-    const res = await fetch(`${process.env.SERVER_URL}/animal`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

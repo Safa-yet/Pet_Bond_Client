@@ -40,7 +40,7 @@ console.log(userProfile,error ,"dashboard");
 
   const navLinks = [
     "Home",
-    "Services",
+    "All Pets",
     "Stories",
     "About",
     "FAQ",
@@ -60,34 +60,22 @@ console.log(userProfile,error ,"dashboard");
         {/* Desktop Menu */}
         <ul className="hidden items-center gap-8 md:flex">
         <Link
-          className={pathName === '/' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors text-sm  uppercase "}
+          className={pathName === '/' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
           href='/'
         >
           Home
         </Link>
         <Link
-          className={pathName === '/allpet' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors text-sm  uppercase "}
+          className={pathName === '/allpet' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
           href='/allpet'
         >
           All Pet
         </Link>
         <Link
-          className={pathName === '/destinations' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors text-sm  uppercase "}
-          href='/destinations'
+          className={pathName === '/dashboard' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
+          href='/dashboard'
         >
-          Destination
-        </Link>
-        <Link
-          className={pathName === '/booking-list' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors text-sm  uppercase "}
-          href='/booking-list' 
-        >
-          Booking List
-        </Link>
-        <Link
-          className={pathName === '/book-destination' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors text-sm  uppercase "}
-          href='/book-destination' 
-        >
-        Add New
+          All Pet
         </Link>
         </ul>
 
@@ -254,34 +242,135 @@ console.log(userProfile,error ,"dashboard");
             : "max-h-0"
         }`}
       >
-        <div className="space-y-5 bg-white/95 p-6 backdrop-blur-xl">
-          <ul className="flex flex-col gap-5">
-            {navLinks.map((item, index) => (
-              <li key={index}>
-                <Link
-                  href="#"
-                  className={`text-base font-medium transition ${
-                    item === "Home"
-                      ? "text-orange-600"
-                      : "text-gray-700 hover:text-orange-600"
-                  }`}
-                >
-                  {item}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="space-y-5 bg-white/95 p-6 backdrop-blur-xl flex flex-col">
 
-          {/* Mobile Button */}
-          <div className="border-t border-orange-100 pt-5 flex flex-col">
+        <Link
+          className={pathName === '/' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
+          href='/'
+        >
+          Home
+        </Link>
+        <Link
+          className={pathName === '/allpet' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
+          href='/allpet'
+        >
+          All Pet
+        </Link>
+        <Link
+          className={pathName === '/dashboard' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
+          href='/dashboard'
+        >
+          Dashboard
+        </Link>
+        
+         {
+            isPending?
+            <>
+            <Spinner></Spinner></>
+            :
+
+
+          <Dropdown placement="bottom-end">
+  <Dropdown.Trigger>
+    {session?.user ? (
+      // Avatar trigger
+      <Avatar className="cursor-pointer ring-2 ring-white/20">
+        <Avatar.Image
+          src={session.user.image}
+          alt={session.user.name}
+        />
+        <Avatar.Fallback>
+          {session.user.name?.charAt(0)}
+        </Avatar.Fallback>
+      </Avatar>
+    ) : (
+      // Sign In / Sign Up buttons
+      <div className="flex items-center gap-3">
         
             <Link href={'/signin'}>
-            <Button className='bg-transparent text-black font-semibold hover:text-pri w-full'>Sign In</Button>
+            <Button className='bg-transparent text-black font-semibold hover:text-pri'>Sign In</Button>
             </Link>
             <Link href={'/signup'}>
-            <Button className="bg-pri rounded-full hover:bg-pri/80  text-white font-semibold w-full">Sign Up</Button>
+            <Button className="bg-pri rounded-full hover:bg-pri/80  text-white font-semibold">Sign Up</Button>
             </Link>
+      </div>
+    )}
+  </Dropdown.Trigger>
+
+  {session?.user && (
+    <Dropdown.Popover className="p-0 border border-gray-200 shadow-2xl rounded-2xl overflow-hidden">
+      <Dropdown.Menu
+        aria-label="User Menu"
+        className="min-w-[220px] bg-white text-black p-2"
+      >
+        {/* User Info */}
+        <Dropdown.Item
+          isReadOnly
+          className="cursor-default hover:bg-transparent"
+        >
+          <div className="flex items-center gap-3 p-2">
+            <Avatar>
+              <Avatar.Image
+                src={session.user.image}
+                alt={session.user.name}
+              />
+              <Avatar.Fallback>
+                {session.user.name?.charAt(0)}
+              </Avatar.Fallback>
+            </Avatar>
+
+            <div>
+              <h4 className="font-semibold text-sm">
+                {session.user.name}
+              </h4>
+
+              <p className="text-xs text-gray-500">
+                Logged In
+              </p>
+            </div>
           </div>
+        </Dropdown.Item>
+
+        {/* Profile */}
+        <Dropdown.Item className="rounded-xl hover:bg-gray-100 transition">
+          <Link
+            href="/profile"
+            className="flex items-center gap-3 w-full"
+          >
+            <FaUser className="text-gray-500" />
+            Profile
+          </Link>
+        </Dropdown.Item>
+
+        {/* Dashboard */}
+        <Dropdown.Item className="rounded-xl hover:bg-gray-100 transition">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-3 w-full"
+          >
+            <MdDashboard className="text-gray-500" />
+            Dashboard
+          </Link>
+        </Dropdown.Item>
+
+        {/* Logout */}
+        <Dropdown.Item className="rounded-xl hover:bg-red-50 transition">
+          <Button
+            onPress={() => authClient.signOut()}
+            className="bg-transparent shadow-none p-0 h-auto 
+            flex items-center gap-3 text-red-500 hover:text-red-600"
+          >
+            <FaSignOutAlt />
+            Logout
+          </Button>
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown.Popover>
+  )}
+</Dropdown>
+          }
+
+        
         </div>
       </div>
     </nav>

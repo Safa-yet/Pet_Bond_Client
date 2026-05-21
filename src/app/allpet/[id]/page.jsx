@@ -60,7 +60,7 @@ export default async function PetDetailsPage({ params }) {
   console.log(requestInfo);
 
   const res = await fetch(
-    `${process.env.SERVER_URL}/adoption-request`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-request`,
     {
       method: "POST",
 

@@ -13,11 +13,6 @@ import { IoNewspaper, IoSettingsSharp } from 'react-icons/io5';
 const navLinks = [
   {
     href: '/dashboard',
-    label: 'Dashboard',
-    icon: BiHome,
-  },
-  {
-    href: '/dashboard/myrequest',
     label: 'My Requests',
     icon: IoNewspaper,
   },
