@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@heroui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
@@ -94,7 +95,7 @@ const SideBar = () => {
           <div className="h-px bg-gray-200 my-5"></div>
 
           {/* Settings */}
-          <button
+          <Button
             className="
               flex items-center gap-4 px-4 py-3 rounded-2xl
               hover:bg-gray-100 transition-all duration-300
@@ -106,7 +107,7 @@ const SideBar = () => {
             <span className="font-semibold">
               Settings
             </span>
-          </button>
+          </Button>
         </div>
       </div>
 

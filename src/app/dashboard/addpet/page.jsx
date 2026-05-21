@@ -90,7 +90,7 @@ console.log(session);
             {/* useremail requir field */}
             <TextField
               isRequired
-              name="useremail"
+              name="ownerEmail"
               type="text"
               defaultValue={user.email}
               isReadOnly

@@ -1,4 +1,8 @@
+import AdoptForm from "@/Component/Shared Ui/AdoptForm";
+import { auth } from "@/lib/auth";
 import { getSingleApi } from "@/lib/CallApi";
+import { Button, FieldError, Form, Input, Label, TextArea, TextField } from "@heroui/react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,10 +20,69 @@ import {
 import { MdPayments, MdVerified } from "react-icons/md";
 
 export default async function PetDetailsPage({ params }) {
+    
+  const session = await auth.api.getSession({
+      headers: await headers() // you need to pass the headers object.
+  })
+  const user = session?.user;
+  console.log(user,"adopt request");
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const { id } = await params;
 
-  const pet = await getSingleApi(id);
-  console.log('details',pet);
+  const pet = await getSingleApi(id, token);
+  console.log("details", pet);
+
+
+ const adoptRequest = async (formData) => {
+  "use server";
+
+  const fromInfo = Object.fromEntries(
+    formData.entries()
+  );
+
+  const requestInfo = {
+    ...fromInfo,
+
+    petId: pet?._id,
+
+    ownerEmail: pet?.ownerEmail,
+
+    requesterEmail: user?.email,
+
+    requesterName: user?.name,
+
+    status: "pending",
+  };
+
+  console.log(requestInfo);
+
+  const res = await fetch(
+    `${process.env.SERVER_URL}/adoption-request`,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/json",
+
+        authorization: token,
+      },
+
+      body: JSON.stringify(
+        requestInfo
+      ),
+    }
+  );
+
+  const data = await res.json();
+
+  console.log(data);
+};
+
+
 
   // const {petName,age,breed, description,gender,healthStatus,image,vaccinationStatus,_id,email,adoptationFee}= pet;
 
@@ -112,9 +175,7 @@ export default async function PetDetailsPage({ params }) {
                     </div>
 
                     <div>
-                      <p className="text-sm text-gray-500">
-                        Adoption Fee
-                      </p>
+                      <p className="text-sm text-gray-500">Adoption Fee</p>
 
                       <h3 className="text-2xl font-bold text-[#812800]">
                         ${pet?.adoptionFee || 250}
@@ -165,13 +226,9 @@ export default async function PetDetailsPage({ params }) {
                     {item.icon}
                   </div>
 
-                  <p className="text-sm text-gray-500">
-                    {item.title}
-                  </p>
+                  <p className="text-sm text-gray-500">{item.title}</p>
 
-                  <h3 className="mt-2 text-2xl font-bold">
-                    {item.value}
-                  </h3>
+                  <h3 className="mt-2 text-2xl font-bold">{item.value}</h3>
                 </div>
               ))}
             </div>
@@ -205,9 +262,7 @@ export default async function PetDetailsPage({ params }) {
                     key={index}
                     className="flex items-center gap-3 rounded-full bg-[#ede0d8] px-5 py-3 font-medium text-[#211a16]"
                   >
-                    <span className="text-[#812800]">
-                      {item.icon}
-                    </span>
+                    <span className="text-[#812800]">{item.icon}</span>
 
                     {item.label}
                   </div>
@@ -241,9 +296,7 @@ export default async function PetDetailsPage({ params }) {
 
               <div className="relative flex flex-col gap-8 p-10 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <p className="mb-3 text-white/70">
-                    Current Location
-                  </p>
+                  <p className="mb-3 text-white/70">Current Location</p>
 
                   <h3 className="text-4xl font-bold text-white">
                     {pet?.location || "Dhaka, Bangladesh"}
@@ -266,84 +319,96 @@ export default async function PetDetailsPage({ params }) {
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">
-                    Ready to adopt?
-                  </p>
+                  <p className="text-sm text-gray-500">Ready to adopt?</p>
 
                   <h2 className="text-3xl font-bold text-[#161d1f]">
                     Send Request
                   </h2>
                 </div>
               </div>
-
-              <form className="space-y-5">
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+              <Form className="space-y-5" action={adoptRequest}>
+                <TextField
+                  name="petName"
+                  isReadOnly
+                  defaultValue={pet?.petName}
+                >
+                  <Label className="mb-2 block text-sm font-semibold text-gray-500">
                     Pet Name
-                  </label>
+                  </Label>
 
-                  <input
-                    type="text"
-                    readOnly
-                    value={pet?.petName || "Luna"}
-                    className="w-full rounded-2xl border border-gray-200 bg-gray-100 px-5 py-4 outline-none"
-                  />
-                </div>
+                  <Input className="w-full rounded-2xl border border-gray-200 bg-gray-100 px-5 py-4 outline-none" />
 
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+                  <FieldError />
+                </TextField>
+
+                <TextField isReadOnly name="userName" defaultValue={user.name}>
+                  <Label className="mb-2 block text-sm font-semibold text-gray-500">
                     Your Name
-                  </label>
+                  </Label>
 
-                  <input
-                    type="text"
+                  <Input
                     placeholder="Enter your name"
-                    className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none transition focus:border-[#812800]"
+                    className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none"
                   />
-                </div>
 
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+                  <FieldError />
+                </TextField>
+
+                <TextField isReadOnly defaultValue={user.email} name="userEmail" type="email">
+                  <Label className="mb-2 block text-sm font-semibold text-gray-500">
                     Email Address
-                  </label>
+                  </Label>
 
-                  <input
-                    type="email"
+                  <Input
                     placeholder="Enter your email"
-                    className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none transition focus:border-[#812800]"
+                    className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none"
                   />
-                </div>
 
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+                  <FieldError />
+                </TextField>
+
+                <TextField isRequired name="pickupDate" type="date">
+                  <Label className="mb-2 block text-sm font-semibold text-gray-500">
                     Pickup Date
-                  </label>
+                  </Label>
 
-                  <input
-                    type="date"
-                    className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none transition focus:border-[#812800]"
-                  />
-                </div>
+                  <Input className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none" />
 
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-500">
+                  <FieldError />
+                </TextField>
+
+                <TextField isRequired name="message">
+                  <Label className="mb-2 block text-sm font-semibold text-gray-500">
                     Message
-                  </label>
+                  </Label>
 
-                  <textarea
+                  <TextArea
                     rows={5}
                     placeholder="Tell us why you want to adopt this pet..."
-                    className="w-full resize-none rounded-3xl border border-gray-300 px-5 py-4 outline-none transition focus:border-[#812800]"
+                    className="w-full resize-none rounded-3xl border border-gray-300 px-5 py-4 outline-none"
                   />
-                </div>
 
-                <button
+                  <FieldError />
+                </TextField>
+                {
+  user?.email ===
+    pet?.ownerEmail && 
+    <p className="mb-3 text-sm text-red-500">
+      You cannot adopt your own pet
+    </p>
+
+}
+
+                <Button
                   type="submit"
-                  className="w-full rounded-2xl bg-[#812800] py-4 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                  isDisabled={
+    user?.email === pet?.ownerEmail
+  }
+                  className="w-full rounded-2xl bg-[#812800] py-4 text-lg font-bold text-white"
                 >
                   Submit Adoption Request
-                </button>
-              </form>
+                </Button>
+              </Form>
 
               {/* EXTRA INFO */}
               <div className="mt-8 rounded-3xl bg-[#fff4ef] p-5">
@@ -360,7 +425,6 @@ export default async function PetDetailsPage({ params }) {
           </aside>
         </div>
       </section>
-
     </div>
   );
 }
