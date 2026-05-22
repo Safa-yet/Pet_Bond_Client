@@ -9,7 +9,9 @@ import {
   Surface,
   TextField,
 } from "@heroui/react";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
+import { FaEdit } from "react-icons/fa";
 
 
 const EditBtn = async({ pet }) => {
@@ -21,6 +23,7 @@ const EditBtn = async({ pet }) => {
     'use server';
 
     console.log(formData);
+    revalidatePath("/dashboard/mypets");
 
     // // console.log(formData);
     return await UpdatePetApi(pet._id,token,formData);
@@ -37,7 +40,7 @@ const EditBtn = async({ pet }) => {
             <Modal.CloseTrigger />
             <Modal.Header>
               <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
-                {/* <Envelope className="size-5" /> */}
+               <FaEdit />
               </Modal.Icon>
               <Modal.Heading>Edit Your Pets</Modal.Heading>
               <p className="mt-1.5 text-sm leading-5 text-muted">
