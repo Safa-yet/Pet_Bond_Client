@@ -6,10 +6,8 @@ import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 
 const PetCollection = async() => {
-   const { token } = await auth.api.getToken({
-      headers: await headers(),
-    });
-  const petCollection = await AllAnimal(token);
+
+  const petCollection = await AllAnimal();
 
     return (
         <div className='mx-auto container'>

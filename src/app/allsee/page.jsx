@@ -5,7 +5,7 @@ import PetCard from "@/Component/Shared Ui/PetCard";
 import { authClient } from "@/lib/auth-client";
 import React, { useEffect, useState } from "react";
 
-const AllPetsPage = () => {
+const AllPetSee = () => {
 const [loading, setLoading] = useState(true);
   const [pets, setPets] = useState([]);
 
@@ -213,4 +213,4 @@ const [loading, setLoading] = useState(true);
   );
 };
 
-export default AllPetsPage;
+export default AllPetSee;

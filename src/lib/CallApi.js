@@ -1,11 +1,7 @@
 // import { revalidatePath } from "next/cache";
 
-export const AllAnimal = async (token) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal`, {
-      headers: {
-        authorization: token,
-      },
-    });
+export const AllAnimal = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal`);
   const data = await res.json();
   console.log(data);
   return data;

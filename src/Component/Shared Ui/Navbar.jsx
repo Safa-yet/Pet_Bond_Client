@@ -65,8 +65,8 @@ export default function Navbar() {
           Home
         </Link>
         <Link
-          className={pathName === '/allpet' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
-          href='/allpet'
+          className={pathName === '/allsee' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
+          href='/allsee'
         >
           All Pet
         </Link>
@@ -250,8 +250,8 @@ export default function Navbar() {
           Home
         </Link>
         <Link
-          className={pathName === '/allpet' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
-          href='/allpet'
+          className={pathName === '/allsee' ? "text-pri border-b-2 border-pri pl-2 py-2 font-bold text-sm  uppercase " : "text-neutral hover:text-pri transition-colors font-semibold text-sm  uppercase "}
+          href='/allsee'
         >
           All Pet
         </Link>
