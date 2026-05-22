@@ -6,7 +6,7 @@ import { FaPaw } from "react-icons/fa";
 import { SearchField } from "@heroui/react";
 import { FiFileText } from "react-icons/fi";
 import { LuHeartHandshake } from "react-icons/lu";
-import { BiHome } from "react-icons/bi";
+import { BiHome, BiSearch } from "react-icons/bi";
 
 
 const steps = [
@@ -15,7 +15,7 @@ const steps = [
     title: "Discover Pets",
     description:
       "Explore adorable pets with verified medical records, personality insights, and perfect lifestyle compatibility.",
-    icon: SearchField,
+    icon: BiSearch,
     color: "from-sky-500 to-cyan-400",
     glow: "bg-sky-400/20",
   },

@@ -1,4 +1,4 @@
-import AdoptForm from "@/Component/Shared Ui/AdoptForm";
+
 import { auth } from "@/lib/auth";
 import { getSingleApi } from "@/lib/CallApi";
 import {

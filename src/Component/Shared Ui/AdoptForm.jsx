@@ -1,71 +1,39 @@
 "use client";
 
+import { useActionState, useEffect } from "react";
+
 import {
-  Form,
-  TextField,
-  Label,
-  Input,
-  TextArea,
-  FieldError,
   Button,
-} from "react-aria-components";
+  FieldError,
+  Form,
+  Input,
+  Label,
+  TextArea,
+  TextField,
+} from "@heroui/react";
 
-import { addAdoptionRequest } from "@/lib/CallApi";
+import { toast } from "react-toastify";
 
-const AdoptForm = ({ pet, token }) => {
-  const handleAdoption = async (e) => {
-    e.preventDefault();
+const initialState = {
+  success: false,
+  message: "",
+};
 
-    const form = e.target;
+export default function AdoptForm({ adoptRequest, pet, user }) {
+  const [state, formAction, pending] = useActionState(
+    adoptRequest,
+    initialState,
+  );
 
-    const adoptInfo = {
-      petId: pet?._id,
-
-      petName: pet?.petName,
-
-      ownerEmail: pet?.email,
-
-      userName: form.userName.value,
-
-      userEmail: form.userEmail.value,
-
-      pickupDate: form.pickupDate.value,
-
-      message: form.message.value,
-    };
-
-    console.log(adoptInfo);
-
-    try {
-      const data = await addAdoptionRequest(
-        adoptInfo,
-        token
-      );
-
-      console.log(data);
-
-      if (data.insertedId) {
-        alert("Adoption Request Submitted");
-
-        form.reset();
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state?.message);
     }
-  };
+  }, [state]);
 
   return (
-    <Form
-      className="space-y-5"
-      onSubmit={handleAdoption}
-    >
-      <TextField
-        name="petName"
-        isReadOnly
-        defaultValue={pet?.petName}
-      >
+    <Form className="space-y-5" action={formAction}>
+      <TextField name="petName" isReadOnly defaultValue={pet?.petName}>
         <Label className="mb-2 block text-sm font-semibold text-gray-500">
           Pet Name
         </Label>
@@ -75,24 +43,19 @@ const AdoptForm = ({ pet, token }) => {
         <FieldError />
       </TextField>
 
-      <TextField
-        isRequired
-        name="userName"
-      >
+      <TextField isReadOnly name="userName" defaultValue={user?.name}>
         <Label className="mb-2 block text-sm font-semibold text-gray-500">
           Your Name
         </Label>
 
-        <Input
-          placeholder="Enter your name"
-          className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none"
-        />
+        <Input className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none" />
 
         <FieldError />
       </TextField>
 
       <TextField
-        isRequired
+        isReadOnly
+        defaultValue={user?.email}
         name="userEmail"
         type="email"
       >
@@ -100,19 +63,12 @@ const AdoptForm = ({ pet, token }) => {
           Email Address
         </Label>
 
-        <Input
-          placeholder="Enter your email"
-          className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none"
-        />
+        <Input className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none" />
 
         <FieldError />
       </TextField>
 
-      <TextField
-        isRequired
-        name="pickupDate"
-        type="date"
-      >
+      <TextField isRequired name="pickupDate" type="date">
         <Label className="mb-2 block text-sm font-semibold text-gray-500">
           Pickup Date
         </Label>
@@ -122,10 +78,7 @@ const AdoptForm = ({ pet, token }) => {
         <FieldError />
       </TextField>
 
-      <TextField
-        isRequired
-        name="message"
-      >
+      <TextField isRequired name="message">
         <Label className="mb-2 block text-sm font-semibold text-gray-500">
           Message
         </Label>
@@ -141,12 +94,12 @@ const AdoptForm = ({ pet, token }) => {
 
       <Button
         type="submit"
+        isLoading={pending}
+        isDisabled={user?.email === pet?.ownerEmail}
         className="w-full rounded-2xl bg-[#812800] py-4 text-lg font-bold text-white"
       >
         Submit Adoption Request
       </Button>
     </Form>
   );
-};
-
-export default AdoptForm;
+}

@@ -81,7 +81,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-lg text-neutral max-w-xl leading-[1.9] mb-10"
+              className="text-lg dark:text-shadow-white text-neutral max-w-xl leading-[1.9] mb-10"
             >
               Every paw has a story waiting for a happy ending. Connect
               with lovable pets ready to bring joy, comfort, and
