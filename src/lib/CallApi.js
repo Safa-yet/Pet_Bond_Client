@@ -1,23 +1,28 @@
 // import { revalidatePath } from "next/cache";
 
 export const AllAnimal = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal`,);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal`);
   const data = await res.json();
   console.log(data);
   return data;
 };
 
 export const MyAddAnimal = async (id) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-pets/${id}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/my-pets/${id}`,
+  );
   return res.json();
 };
 
 export const getSingleApi = async (id, token) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal/${id}`, {
-    headers: {
-      authorization: token,
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/animal/${id}`,
+    {
+      headers: {
+        authorization: token,
+      },
     },
-  });
+  );
   const data = await res.json();
   return data;
 };
@@ -27,17 +32,20 @@ export const UpdatePetApi = async (id, token, updatedData) => {
   const updatedPet = Object.fromEntries(updatedData.entries());
 
   // request
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal/${id}`, {
-    method: "PATCH",
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/animal/${id}`,
+    {
+      method: "PATCH",
 
-    headers: {
-      "Content-Type": "application/json",
+      headers: {
+        "Content-Type": "application/json",
 
-      authorization: token,
+        authorization: token,
+      },
+
+      body: JSON.stringify(updatedPet),
     },
-
-    body: JSON.stringify(updatedPet),
-  });
+  );
 
   const data = await res.json();
   //    if(data.modifiedCount > 0){
@@ -90,13 +98,7 @@ export const getPetRequestsApi = async (petId, token) => {
 //   return res.json();
 // };
 
-export const updateRequestStatusApi = async (
-  id,
-  petId,
-  status,
-  token
-) => {
-
+export const updateRequestStatusApi = async (id, petId, status, token) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-request/${id}`,
     {
@@ -111,48 +113,26 @@ export const updateRequestStatusApi = async (
         status,
         petId,
       }),
-    }
+    },
   );
 
   return res.json();
 };
 
-
-
-
-export const getMyAdoptionRequestsApi = async (
-  email,
-  token
-) => {
-
+export const getMyAdoptionRequestsApi = async (email, token) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/my-adoption-requests/${email}`,
     {
-      method: "GET",
-
       headers: {
         authorization: token,
       },
-    }
+    },
   );
 
   return res.json();
 };
 
-
-
-
-
-
-
-
-
-
-export const cancelRequestApi = async (
-  id,
-  token
-) => {
-
+export const cancelRequestApi = async (id, token) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-request/${id}`,
     {
@@ -161,7 +141,7 @@ export const cancelRequestApi = async (
       headers: {
         authorization: token,
       },
-    }
+    },
   );
 
   return res.json();

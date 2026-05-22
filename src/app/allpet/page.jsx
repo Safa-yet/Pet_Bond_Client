@@ -1,10 +1,12 @@
 "use client";
 
+import Loading from "@/Component/Shared Ui/Loading";
 import PetCard from "@/Component/Shared Ui/PetCard";
+import { authClient } from "@/lib/auth-client";
 import React, { useEffect, useState } from "react";
 
 const AllPetsPage = () => {
-
+const [loading, setLoading] = useState(true);
   const [pets, setPets] = useState([]);
 
   const [search, setSearch] = useState("");
@@ -16,8 +18,14 @@ const AllPetsPage = () => {
   // fetch pets
   useEffect(() => {
 
+    // token get
+    
     const fetchPets = async () => {
+      setLoading(true)
+      const token = await authClient.getToken();
 
+
+      console.log("Alll pet Tokeeen ", token);
       const speciesQuery = species.join(",");
 
       const res = await fetch(
@@ -27,6 +35,7 @@ const AllPetsPage = () => {
       const data = await res.json();
 
       setPets(data);
+      setLoading(false)
     };
 
     fetchPets();
@@ -55,7 +64,7 @@ const AllPetsPage = () => {
 
       <main className="mx-auto max-w-7xl px-4 pb-20 pt-6 lg:px-10">
 
-        {/* Search & Filter */}
+        {/* Search  */}
         <section className="mb-14 rounded-[32px] border border-gray-200 bg-white p-8 shadow-sm">
 
           <div className="flex flex-col gap-8">
@@ -149,7 +158,7 @@ const AllPetsPage = () => {
           </div>
         </section>
 
-        {/* Title */}
+       
         <div className="
           mb-10 flex flex-col
           items-start justify-between
@@ -177,8 +186,9 @@ const AllPetsPage = () => {
             {pets.length} Pets Available
           </span>
         </div>
+{
+  loading?<><Loading></Loading></>:
 
-        {/* PETS */}
         <section className="
           grid grid-cols-1 gap-8
           sm:grid-cols-2
@@ -194,6 +204,8 @@ const AllPetsPage = () => {
           ))}
 
         </section>
+}
+        
 
       </main>
     </div>
