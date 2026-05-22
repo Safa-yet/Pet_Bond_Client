@@ -2,11 +2,15 @@ import { AllAnimal } from '@/lib/CallApi';
 import React from 'react';
 import PetCard from '../Shared Ui/PetCard';
 import Link from 'next/link';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
 const PetCollection = async() => {
-  
-  const petCollection = await AllAnimal();
-  console.log(petCollection);
+   const { token } = await auth.api.getToken({
+      headers: await headers(),
+    });
+  const petCollection = await AllAnimal(token);
+
     return (
         <div className='mx-auto container'>
             <section className="py-20">

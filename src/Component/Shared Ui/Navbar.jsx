@@ -36,7 +36,6 @@ export default function Navbar() {
 
   const userProfile = session?.user;
 
-console.log(userProfile,error ,"dashboard");
 
   const navLinks = [
     "Home",

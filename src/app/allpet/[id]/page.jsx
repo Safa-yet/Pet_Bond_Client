@@ -76,9 +76,9 @@ export default async function PetDetailsPage({ params }) {
 
     const data = await res.json();
 
-    // if (res) {
-    //   alert("nicee");
-    // }
+    if (res) {
+     console.log('Adopt sent successful') 
+    }
 
     console.log(data);
   };

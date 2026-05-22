@@ -22,19 +22,24 @@ const [loading, setLoading] = useState(true);
     
     const fetchPets = async () => {
       setLoading(true)
-      const token = await authClient.getToken();
+      const { data, error } = await authClient.token()
 
 
-      console.log("Alll pet Tokeeen ", token);
+
+      console.log("Alll pet Tokeeen ", data);
       const speciesQuery = species.join(",");
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/animal?search=${search}&species=${speciesQuery}&sort=${sort}`
-      );
+      , {
+      headers: {
+        authorization: data.token,
+      },
+    });
 
-      const data = await res.json();
+      const petData = await res.json();
 
-      setPets(data);
+      setPets(petData);
       setLoading(false)
     };
 

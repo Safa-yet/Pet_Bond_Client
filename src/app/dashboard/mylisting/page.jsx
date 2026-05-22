@@ -94,7 +94,7 @@ export default async function MyListingsPage() {
             </p>
           </div>
 
-          <Link href="/dashboard/add-pet">
+          <Link href="/dashboard/addpet">
             <Button className="flex items-center justify-center gap-2 rounded-full bg-pri px-8 py-3 text-sm font-semibold text-white shadow-md transition hover:scale-105">
               <MdAdd className="text-xl" />
               List a New Pet
@@ -147,7 +147,7 @@ export default async function MyListingsPage() {
               Start by adding your first pet listing.
             </p>
 
-            <Link href="/dashboard/add-pet">
+            <Link href="/dashboard/addpet">
               <Button className="mt-6 rounded-full bg-pri px-8 py-3 font-semibold text-white transition hover:scale-105">
                 Add Pet
               </Button>
@@ -248,7 +248,7 @@ export default async function MyListingsPage() {
       </main>
 
       {/* Mobile FAB */}
-      <Link href="/dashboard/add-pet">
+      <Link href="/dashboard/addpet">
         <Button className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#ff6d33] text-white shadow-2xl transition hover:scale-110 md:hidden">
           <MdAdd className="text-4xl" />
         </Button>
