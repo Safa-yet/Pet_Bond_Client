@@ -313,14 +313,14 @@ const rejectedReq = myReq.filter(
 
         <div
           className="
-            flex justify-end gap-2
+            flex justify-end items-center gap-2
             
             transition-all duration-300
           "
         >
 
           {/* View */}
-          <Link href={`/`}>
+          <Link href={`/allpet/${pet._id}`} className="hover:underline">
           View Details</Link>
 
           {/* Cancel */}

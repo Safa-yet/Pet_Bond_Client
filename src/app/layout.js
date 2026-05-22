@@ -30,7 +30,7 @@ suppressHydrationWarning
     >
 
       <body className="min-h-full flex flex-col">
-        {/* <Providers> */}
+        <Providers>
 
           <Navbar />
           <div >
@@ -39,7 +39,7 @@ suppressHydrationWarning
           </div>
                   <ToastContainer />
           <Footer></Footer>
-        {/* </Providers> */}
+        </Providers>
       </body>
     </html>
   );

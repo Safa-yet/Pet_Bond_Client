@@ -146,3 +146,20 @@ export const cancelRequestApi = async (id, token) => {
 
   return res.json();
 };
+
+
+
+
+// Addd pet 
+
+
+export const AddPetInfo = async (formInfo) => {
+   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formInfo),
+      });
+  return res.json();
+};

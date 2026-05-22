@@ -7,6 +7,7 @@ import { Button, FieldError, Form, Input, Label, TextArea, TextField } from '@he
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { toast } from 'react-toastify';
+import { AddPetInfo } from '@/lib/CallApi';
 
 const AddPet = async() => {
   
@@ -22,15 +23,9 @@ console.log(session);
 
   fromInfo.adopted = false;
     console.log('Form Data:', fromInfo);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/animal`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(fromInfo),
-    });
-    const data = await res.json();
+   return await AddPetInfo(fromInfo)
     if (data.insertedId) {
+      toast
       redirect('/dashboard/mylisting');
     }
 
