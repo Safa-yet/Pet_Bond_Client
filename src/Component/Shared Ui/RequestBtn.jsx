@@ -15,6 +15,7 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import ReqResponseBtn from "./ReqResponseBtn";
+import { BsChatSquareQuote } from "react-icons/bs";
 
 
 export default async function RequestBtn({ pet, token }) {
@@ -33,7 +34,7 @@ console.log(data);
             <Modal.Dialog className="sm:max-w-[360px]">
               <Modal.CloseTrigger />
               <Modal.Header>
-                <Modal.Icon className="bg-default text-foreground"></Modal.Icon>
+                <Modal.Icon className="bg-default text-foreground"><BsChatSquareQuote /></Modal.Icon>
                 <Modal.Heading>All Adopt Request List</Modal.Heading>
               </Modal.Header>
               <Modal.Body>

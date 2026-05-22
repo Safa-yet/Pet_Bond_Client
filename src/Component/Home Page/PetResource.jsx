@@ -31,7 +31,7 @@ const PetResource = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-on-surface">
+            <h2 className="text-3xl md:text-4xl font-bold text-on-surface ">
               Pet Care Resources
             </h2>
             <p className="text-on-surface-variant mt-2">
@@ -45,7 +45,7 @@ const PetResource = () => {
           {resources.map((item, idx) => (
             <article
               key={idx}
-              className="group bg-white rounded-3xl overflow-hidden border border-surface-variant/40 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="group bg-white  dark:bg-gray-700 rounded-3xl overflow-hidden border border-surface-variant/40 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
@@ -59,7 +59,7 @@ const PetResource = () => {
 
               {/* Content */}
               <div className="p-5">
-                <h4 className="text-lg font-semibold text-on-surface group-hover:text-pri transition-colors">
+                <h4 className="text-lg  font-semibold text-on-surface group-hover:text-pri transition-colors">
                   {item.title}
                 </h4>
 

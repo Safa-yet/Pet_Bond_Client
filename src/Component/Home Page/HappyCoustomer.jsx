@@ -32,7 +32,7 @@ const HappyCoustomer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Card 1 */}
-          <div className="group relative bg-white/70 backdrop-blur-xl border border-white/30 rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+          <div className="group relative bg-white/70 dark:bg-blue/70 backdrop-blur-xl border border-white/30 rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             
             {/* Gradient Top */}
             <div className="h-2 w-full bg-gradient-to-r from-pri to-orange-400"></div>
@@ -96,7 +96,7 @@ const HappyCoustomer = () => {
           </div>
 
           {/* Card 2 */}
-          <div className="group relative bg-white/70 backdrop-blur-xl border border-white/30 rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+          <div className="group relative bg-white/70 dark:bg-blue/70  backdrop-blur-xl border border-white/30 rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
             
             <div className="h-2 w-full bg-gradient-to-r from-sec to-cyan-400"></div>
 

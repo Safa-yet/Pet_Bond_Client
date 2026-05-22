@@ -5,7 +5,7 @@ const services = [
     title: "Wellness Care",
     desc: "Comprehensive health checks and vaccinations for every pet.",
     icon: "🩺",
-    bg: "bg-white",
+    bg: "bg-yellow",
     text: "text-on-surface",
     iconBg: "bg-pri-fixed",
   },

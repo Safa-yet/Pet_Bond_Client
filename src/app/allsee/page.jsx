@@ -110,18 +110,14 @@ const AllPetSee = () => {
                   className="
                     w-full rounded-full
                     border border-gray-300
-                    bg-white
+                    
                     px-5 py-3
-                    text-black
+                    text-foreground
                     outline-none transition
 
-                    placeholder:text-gray-400
                     focus:border-[#812800]
 
-                    dark:border-white/10
-                    dark:bg-[#1a2433]
-                    dark:text-white
-                    dark:placeholder:text-gray-500
+                   
                     dark:focus:border-[#ff8a5b]
                   "
                 />
@@ -148,16 +144,14 @@ const AllPetSee = () => {
                   className="
                     w-full rounded-full
                     border border-gray-300
-                    bg-white
+                    
                     px-5 py-3
-                    text-black
+                    text-foreground
                     outline-none transition
 
                     focus:border-[#812800]
 
-                    dark:border-white/10
-                    dark:bg-[#1a2433]
-                    dark:text-white
+                   
                     dark:focus:border-[#ff8a5b]
                   "
                 >
@@ -236,9 +230,7 @@ const AllPetSee = () => {
             <h1
               className="
                 text-4xl font-extrabold
-                text-[#161d1f]
-
-                dark:text-white
+                text-foreground
               "
             >
               Available Companions

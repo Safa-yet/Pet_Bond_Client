@@ -1,4 +1,5 @@
 
+import AdoptForm from "@/Component/Shared Ui/AdoptForm";
 import { auth } from "@/lib/auth";
 import { getSingleApi } from "@/lib/CallApi";
 import {
@@ -43,45 +44,48 @@ export default async function PetDetailsPage({ params }) {
   const pet = await getSingleApi(id, token);
   console.log("details", pet);
 
-  const adoptRequest = async (formData) => {
-    "use server";
+  const adoptRequest = async (prevState, formData) => {
+  "use server";
 
-    const fromInfo = Object.fromEntries(formData.entries());
+  const fromInfo = Object.fromEntries(formData.entries());
 
-    const requestInfo = {
-      ...fromInfo,
-      petId: pet?._id,
-      ownerEmail: pet?.ownerEmail,
-      requesterEmail: user?.email,
-      requesterName: user?.name,
-      status: "pending",
-    };
-
-    console.log(requestInfo);
-
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-request`,
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-
-          authorization: token,
-        },
-
-        body: JSON.stringify(requestInfo),
-      },
-    );
-
-    const data = await res.json();
-
-    if (res) {
-     console.log('Adopt sent successful') 
-    }
-
-    console.log(data);
+  const requestInfo = {
+    ...fromInfo,
+    petId: pet?._id,
+    ownerEmail: pet?.ownerEmail,
+    requesterEmail: user?.email,
+    requesterName: user?.name,
+    status: "pending",
   };
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-request`,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+
+      body: JSON.stringify(requestInfo),
+    },
+  );
+
+  const data = await res.json();
+
+  if (res.ok) {
+    return {
+      success: true,
+      message: "Adoption request sent successfully 🐾",
+    };
+  }
+
+  return {
+    success: false,
+    message: data?.message || "Something went wrong",
+  };
+};
 
   // const {petName,age,breed, description,gender,healthStatus,image,vaccinationStatus,_id,email,adoptationFee}= pet;
 
@@ -820,85 +824,11 @@ export default async function PetDetailsPage({ params }) {
                   </div>
 
                   {/* FORM */}
-                  <Form className="space-y-5" action={adoptRequest}>
-                    {" "}
-                    <TextField
-                      name="petName"
-                      isReadOnly
-                      defaultValue={pet?.petName}
-                    >
-                      {" "}
-                      <Label className="mb-2 block text-sm font-semibold text-gray-500">
-                        {" "}
-                        Pet Name{" "}
-                      </Label>{" "}
-                      <Input className="w-full rounded-2xl border border-gray-200 bg-gray-100 px-5 py-4 outline-none" />{" "}
-                      <FieldError />{" "}
-                    </TextField>{" "}
-                    <TextField
-                      isReadOnly
-                      name="userName"
-                      defaultValue={user.name}
-                    >
-                      {" "}
-                      <Label className="mb-2 block text-sm font-semibold text-gray-500">
-                        {" "}
-                        Your Name{" "}
-                      </Label>{" "}
-                      <Input
-                        placeholder="Enter your name"
-                        className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none"
-                      />{" "}
-                      <FieldError />{" "}
-                    </TextField>{" "}
-                    <TextField
-                      isReadOnly
-                      defaultValue={user.email}
-                      name="userEmail"
-                      type="email"
-                    >
-                      {" "}
-                      <Label className="mb-2 block text-sm font-semibold text-gray-500">
-                        {" "}
-                        Email Address{" "}
-                      </Label>{" "}
-                      <Input
-                        placeholder="Enter your email"
-                        className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none"
-                      />{" "}
-                      <FieldError />{" "}
-                    </TextField>{" "}
-                    <TextField isRequired name="pickupDate" type="date">
-                      {" "}
-                      <Label className="mb-2 block text-sm font-semibold text-gray-500">
-                        {" "}
-                        Pickup Date{" "}
-                      </Label>{" "}
-                      <Input className="w-full rounded-2xl border border-gray-300 px-5 py-4 outline-none" />{" "}
-                      <FieldError />{" "}
-                    </TextField>{" "}
-                    <TextField isRequired name="message">
-                      {" "}
-                      <Label className="mb-2 block text-sm font-semibold text-gray-500">
-                        {" "}
-                        Message{" "}
-                      </Label>{" "}
-                      <TextArea
-                        rows={5}
-                        placeholder="Tell us why you want to adopt this pet..."
-                        className="w-full resize-none rounded-3xl border border-gray-300 px-5 py-4 outline-none"
-                      />{" "}
-                      <FieldError />{" "}
-                    </TextField>{" "}
-                    <Button
-                      type="submit"
-                      isDisabled={user?.email === pet?.ownerEmail}
-                      className="w-full rounded-2xl bg-[#812800] py-4 text-lg font-bold text-white"
-                    >
-                      {" "}
-                      Submit Adoption Request{" "}
-                    </Button>{" "}
-                  </Form>
+                 <AdoptForm
+  adoptRequest={adoptRequest}
+  pet={pet}
+  user={user}
+/>
 
                   {/* POLICY */}
                   <div className="mt-8 rounded-3xl bg-[#fff4ef] p-5">

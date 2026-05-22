@@ -49,7 +49,7 @@ export default async function MyListingsPage() {
       value: totalListings,
       subtitle: "Your total pet listings",
       icon: <MdPets className="text-[120px]" />,
-      bg: "bg-white",
+      bg: "bg-green-100",
     },
 
     {
@@ -133,7 +133,7 @@ export default async function MyListingsPage() {
               {stat.title}
             </p>
 
-            <h3 className="mt-2 text-5xl font-extrabold dark:text-white">
+            <h3 className="mt-2 text-pri text-5xl font-extrabold ">
               {stat.value}
             </h3>
 
@@ -161,7 +161,7 @@ export default async function MyListingsPage() {
 
     {/* Listings Title */}
     <div className="mb-8">
-      <h3 className="text-3xl font-bold dark:text-white">
+      <h3 className="text-3xl font-bold text-pri">
         Manage Pets
       </h3>
     </div>
@@ -257,7 +257,7 @@ export default async function MyListingsPage() {
           <div className="flex flex-1 flex-col p-6">
             <div className="mb-4 flex items-start justify-between">
               <div>
-                <h4 className="text-2xl font-bold dark:text-white">
+                <h4 className="text-2xl  font-bold text-foreground">
                   {pet.petName}
                 </h4>
 
