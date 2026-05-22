@@ -1,5 +1,6 @@
 'use client'
 
+import { authClient } from '@/lib/auth-client';
 import { Button } from '@heroui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -29,10 +30,11 @@ const navLinks = [
 ];
 
 const SideBar = () => {
+  
   const pathname = usePathname();
 
   return (<>
-    <aside className="hidden md:flex flex-col w-72 shrink-0 gap-6">
+    <aside className="hidden md:flex flex-col w-72 shrink-0 gap-6 sticky top-0">
 
       {/* Navigation */}
       <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 border border-gray-200 shadow-xl">
@@ -94,7 +96,7 @@ const SideBar = () => {
             className="
               flex items-center gap-4 px-4 py-3 rounded-2xl
               hover:bg-gray-100 transition-all duration-300
-              text-gray-700 w-full
+              text-gray-700 w-full bg-transparent
             "
           >
             <IoSettingsSharp className="text-xl" />
@@ -106,62 +108,7 @@ const SideBar = () => {
         </div>
       </div>
 
-      {/* Profile Card */}
-      <div className="relative overflow-hidden rounded-3xl p-6 bg-gradient-to-br from-primary/10 via-white to-secondary/10 border border-white shadow-xl">
-
-        {/* Background Blur */}
-        <div className="absolute -top-10 -right-10 w-32 h-32 bg-pri/20 rounded-full blur-3xl"></div>
-
-        <div className="relative z-10">
-
-          <div className="flex items-center gap-4 mb-6">
-
-            <div className="relative">
-              <img
-                src="https://i.pravatar.cc/150?img=12"
-                alt="User"
-                className="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg"
-              />
-
-              <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
-            </div>
-
-            <div>
-              <h3 className="font-bold text-lg text-gray-800">
-                James Wilson
-              </h3>
-
-              <p className="text-sm text-gray-500">
-                Top Adopter
-              </p>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 gap-4">
-
-            <div className="bg-white/70 backdrop-blur-md rounded-2xl p-4 text-center shadow-sm">
-              <p className="text-2xl font-bold text-primary">
-                12
-              </p>
-
-              <p className="text-xs uppercase tracking-widest text-gray-500 mt-1">
-                Total Pets
-              </p>
-            </div>
-
-            <div className="bg-white/70 backdrop-blur-md rounded-2xl p-4 text-center shadow-sm">
-              <p className="text-2xl font-bold text-secondary">
-                3
-              </p>
-
-              <p className="text-xs uppercase tracking-widest text-gray-500 mt-1">
-                Active
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+   
     </aside>
 
     <nav className='md:hidden block'>
