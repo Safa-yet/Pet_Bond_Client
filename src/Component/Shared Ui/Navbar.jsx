@@ -220,7 +220,7 @@ console.log(userProfile,error ,"dashboard");
           </Button>
 
           {/* Menu Toggle */}
-          <button
+          <Button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle Menu"
             className="text-gray-700"
@@ -230,7 +230,7 @@ console.log(userProfile,error ,"dashboard");
             ) : (
               <FaBars size={24} />
             )}
-          </button>
+          </Button>
         </div>
       </header>
 
